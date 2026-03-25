@@ -1,172 +1,170 @@
-# Hotel Tibisay Morrocoy — Contenido Web
-<!-- Versión: v2026-03-25 | Sede: Morrocoy | Tono: Exclusivo, íntimo, boutique -->
+# Hotel Tibisay Morrocoy
+
+**Version:** v2026-03-25
+**Sede:** Hotel Tibisay Morrocoy
+**Estado:** Falcon, Venezuela
+**Telefono:** 0422 645 4665
+**Razon Social:** Hotel Tibisay Hotel Boutique Morrocoy C.A. (J507567036)
+**PMS:** New Hotel (Contacto: Sr. Rafael Clemente — 0412 622 7724)
+
+---
+
+## SEO Meta
+
+```yaml
+title: "Hotel Tibisay Morrocoy | Hotel Boutique frente al Parque Nacional Morrocoy"
+description: "Descubre el encanto boutique de Hotel Tibisay Morrocoy. Cayos cristalinos, snorkeling y playas virgenes en el corazon del Parque Nacional Morrocoy, estado Falcon."
+keywords: "Morrocoy, hotel boutique, cayos, snorkeling, playa, Parque Nacional Morrocoy, Falcon, Chichiriviche, Tucacas, Venezuela"
+slug: "/morrocoy"
+og_image: "assets/morrocoy-hero.jpg"
+lang: "es"
+```
 
 ---
 
 ## Hero
 
-**Headline:** Tu refugio boutique frente al Caribe
-
-**Subheadline:** Hotel Tibisay Morrocoy: un rincón íntimo y exclusivo con acceso directo al Parque Nacional Morrocoy. Cayos de arena blanca, aguas turquesa y la tranquilidad que estabas buscando.
-
-**CTA:** Reserva tu escape boutique
+**Titular:** Tu refugio boutique frente al paraiso
+**Subtitulo:** Hotel Tibisay Morrocoy — exclusividad, intimidad y las aguas cristalinas del Parque Nacional Morrocoy a tu alcance.
+**CTA:** Reserva tu escapada
 
 ---
 
 ## Sobre el Hotel
 
-Hotel Tibisay Morrocoy es para quienes buscan algo diferente. No somos un resort masivo ni un hotel de paso — somos un refugio boutique donde cada detalle está pensado para que te sientas especial.
+Hotel Tibisay Morrocoy es una experiencia boutique disenada para quienes buscan algo mas que un hotel: un refugio intimo donde cada detalle esta pensado para tu descanso. Ubicado en las inmediaciones del Parque Nacional Morrocoy, en el estado Falcon, nuestro hotel te conecta con algunos de los cayos y playas mas espectaculares del Caribe venezolano.
 
-Frente al Parque Nacional Morrocoy, uno de los tesoros naturales mejor guardados de Venezuela, nuestro hotel te ofrece acceso privilegiado a cayos de arena blanca, aguas cristalinas color turquesa y manglares llenos de vida. Aquí el ritmo lo pones tú: puedes pasar el día navegando entre cayos o simplemente no hacer nada más que escuchar el mar.
+Aqui la palabra clave es exclusividad. Con un numero limitado de habitaciones, garantizamos atencion personalizada y un ambiente tranquilo que contrasta con el bullicio de los destinos masivos. Desde el hotel, accedes facilmente a los cayos Sombrero, Borracho, Sal, Muerto y Peraza — cada uno con su propia personalidad de arenas blancas y aguas turquesa.
 
-Con pocas habitaciones y atención personalizada, en Tibisay Morrocoy cada huésped es importante. No eres un número de habitación — eres parte de una experiencia íntima y cuidada.
-
-### Características destacadas
-
-- Hotel boutique con atención personalizada
-- Acceso directo al Parque Nacional Morrocoy
-- Excursiones exclusivas a cayos vírgenes
-- Ambiente íntimo, pocas habitaciones, máxima privacidad
-- Restaurante con cocina de mar fresca del día
-- Diseño que integra la naturaleza costera en cada espacio
-- Ideal para parejas, lunas de miel y escapadas de desconexión
+El Parque Nacional Morrocoy es un ecosistema de manglares, arrecifes de coral y fauna marina diversa que convierte cada salida en lancha en una aventura. Ya sea que busques snorkeling entre corales, kayak por los manglares o simplemente tenderte en una playa virgen sin multitudes, Tibisay Morrocoy es tu punto de partida perfecto.
 
 ---
 
 ## Habitaciones
 
-### Boutique Estándar
-Acogedora y con el estilo propio de un hotel boutique. Decoración costera cuidada y todo lo necesario para una estadía placentera.
+### Habitacion Boutique Estandar
 
-**Amenidades:**
-- Cama matrimonial
+Habitaciones con diseno contemporaneo y toques costeros. Espacios luminosos con acabados en madera y textiles frescos que evocan la brisa marina. Ideales para parejas o viajeros que valoran la estetica y la comodidad.
+
+- Cama queen
 - Aire acondicionado
-- Baño privado
-- Wi-Fi gratuito
-- TV pantalla plana
-- Decoración boutique con elementos costeros
-- Amenidades de baño seleccionadas
-- Servicio de limpieza diario
+- Bano privado con ducha
+- Minibar
+- Terraza o balcon (segun disponibilidad)
+- Wi-Fi
+- Amenidades de bano premium
 
-### Boutique Superior
-Más espacio, más detalles. Perfecta para quienes quieren ese extra de exclusividad sin perder el encanto íntimo.
+### Habitacion Boutique Superior
 
-**Amenidades:**
+Nuestra categoria superior ofrece mayor amplitud y vistas privilegiadas. Decoracion cuidada con elementos locales, area de estar y todas las comodidades para una estadia memorable.
+
 - Cama king
 - Aire acondicionado
-- Balcón o terraza privada
-- Baño privado con amenidades premium
-- Wi-Fi gratuito
-- TV pantalla plana
-- Mini nevera
-- Decoración boutique premium
-- Toallas de playa incluidas
-- Servicio de limpieza diario
-
-### Suite Morrocoy
-La experiencia completa. Amplitud, lujo discreto y una terraza privada donde el Caribe es solo tuyo. Nuestra joya para quienes buscan lo mejor.
-
-**Amenidades:**
-- Sala de estar separada
-- Cama king con ropa de cama premium
-- Aire acondicionado
+- Bano privado con ducha tipo lluvia
+- Minibar surtido
 - Terraza privada con vista
-- Baño de lujo con ducha de lluvia
-- Wi-Fi gratuito
-- TV pantalla plana
-- Mini bar
-- Amenidades de baño de lujo
-- Bata de baño y pantuflas
-- Servicio de habitación
-- Check-in/check-out flexible
-- Servicio de limpieza diario
+- Wi-Fi
+- Amenidades de bano premium
+- Servicio de cafe/te en habitacion
+
+### Suite Boutique
+
+La maxima expresion de nuestro concepto boutique. Espacios generosos con sala de estar independiente, detalles de lujo y la mejor vista de la propiedad.
+
+- Cama king
+- Sala de estar independiente
+- Aire acondicionado
+- Bano amplio con tina y ducha
+- Minibar premium
+- Terraza privada amplia
+- Wi-Fi
+- Amenidades de lujo
+- Servicio de bienvenida especial
 
 ---
 
 ## Servicios
 
-### En el Hotel
-- **Restaurante:** Cocina de mar con pescado y mariscos frescos del día. Menú que cambia según la pesca. Desayuno incluido con opciones tropicales.
-- **Bar:** Cócteles artesanales con frutas tropicales, vinos y la brisa del mar como acompañante.
-- **Recepción personalizada:** No es solo un mostrador — es un equipo que te conoce por nombre y te ayuda a armar tu día perfecto.
-- **Estacionamiento:** Seguro para tu vehículo.
-- **Coordinación de excursiones:** Todo lo que necesitas para explorar Morrocoy, organizado por nosotros.
-
-### Actividades y Experiencias
-- **Excursiones a los cayos:** Cayo Sombrero, Cayo Borracho, Cayo Sal, Playuela y más. Arena blanca, aguas cristalinas y la sensación de tener tu propia isla privada. Lanchas exclusivas disponibles.
-- **Snorkeling:** Arrecifes de coral con peces tropicales de colores. Equipos disponibles en el hotel. Te indicamos los mejores spots.
-- **Kayak:** Recorre los manglares y las aguas calmas del parque a tu propio ritmo. Kayaks disponibles para huéspedes.
-- **Manglares:** Navegación entre manglares llenos de aves, peces y una biodiversidad costera fascinante.
-- **Avistamiento de aves:** Flamencos, pelícanos, garzas y decenas de especies que habitan el parque.
-- **Atardecer en lancha:** Experiencia de navegación al atardecer con cócteles. Bajo reserva.
-- **Buceo:** Para certificados, coordinamos inmersiones en los arrecifes del parque con operadores locales.
+| Servicio | Descripcion |
+|----------|------------|
+| Excursiones a los cayos | Salidas diarias en lancha a Cayo Sombrero, Cayo Borracho, Cayo Sal y otros cayos del parque |
+| Snorkeling | Equipo disponible para explorar los arrecifes de coral del Parque Nacional |
+| Kayak | Recorridos por los canales de manglar y aguas tranquilas del parque |
+| Restaurante | Cocina con enfasis en mariscos frescos y gastronomia falconiana |
+| Piscina | Area de piscina con servicio de bar y tumbonas |
+| Coordinacion de tours | Asistencia para organizar excursiones, buceo certificado y paseos |
+| Traslados | Servicio de transporte desde/hacia el aeropuerto de Coro o terminales cercanas |
+| Estacionamiento | Estacionamiento privado para huespedes |
 
 ---
 
-## Ubicación
+## Ubicacion
 
-**Dirección:** Morrocoy, Estado Falcón, Venezuela
+**Direccion:** Inmediaciones del Parque Nacional Morrocoy, Estado Falcon, Venezuela
 
-**Cómo llegar:**
-- **Por aire:** Vuelo a Valencia (Aeropuerto Internacional Arturo Michelena, VLN) o Barquisimeto (Aeropuerto Internacional Jacinto Lara, BRM), luego traslado terrestre (~2-3 horas).
-- **Por tierra:** Desde Caracas por la autopista Valencia-Morón, luego vía Tucacas/Chichiriviche (~4-5 horas). Carretera en buen estado.
-- **Traslados:** Podemos coordinarte transporte desde Valencia o Barquisimeto. Consulta con recepción.
+**Como llegar:**
+- **Desde Caracas:** Aproximadamente 4 horas por autopista via Valencia - Moron - Tucacas/Chichiriviche
+- **Desde Valencia:** Aproximadamente 2 horas via Moron
+- **Desde Coro:** Aproximadamente 2.5 horas por carretera
+- **Via aerea:** Aeropuerto mas cercano: Aeropuerto Jose Leonardo Chirino (CZE) en Coro, luego transporte terrestre
 
-<!-- NOTA DEV: Insertar Google Maps embed aquí -->
-<!-- Coordenadas aproximadas: 10.8667° N, 68.2333° W -->
-<!-- Usar iframe responsive con lazy loading -->
+**Coordenadas:** [Pendiente de confirmacion]
+
+**Google Maps:** [Enlace pendiente]
+
+**Referencia:** Cercano a las comunidades de Tucacas y Chichiriviche, puntos de embarque principales para los cayos del Parque Nacional Morrocoy.
 
 ---
 
-## Galería
+## Galeria
 
-<!-- NOTA DEV: Sección de galería fotográfica -->
-<!-- Fotos requeridas: -->
-<!-- - Fachada y exteriores del hotel (estilo boutique) -->
-<!-- - Habitaciones (cada tipo, decoración boutique) -->
-<!-- - Restaurante y bar -->
-<!-- - Cayos (Sombrero, Borracho, Sal) -->
-<!-- - Aguas cristalinas y arrecifes -->
-<!-- - Manglares y fauna -->
-<!-- - Atardeceres sobre el mar -->
-<!-- - Kayak y snorkeling -->
-<!-- - Detalles decorativos boutique -->
-<!-- Formato: WebP optimizado, lazy loading, grid responsive -->
-<!-- Mínimo 10-15 fotos de alta calidad -->
+> Seccion pendiente de assets fotograficos. Se requieren imagenes de:
+> - Fachada y areas comunes del hotel
+> - Habitaciones (cada categoria)
+> - Piscina y areas recreativas
+> - Cayos y playas del Parque Nacional
+> - Actividades acuaticas (snorkeling, kayak)
+> - Restaurante y gastronomia
+> - Vistas desde el hotel
+> - Atardeceres sobre el mar
+
+**Formato requerido:** JPG optimizado, max 200KB por imagen, resolucion minima 1200x800px.
+**Naming convention:** morrocoy-[tema]-[numero].jpg (ej: morrocoy-cayo-sombrero-01.jpg)
 
 ---
 
 ## Tarifas
 
-Las tarifas varían según temporada, tipo de habitación y disponibilidad. Los paquetes con excursiones a cayos tienen tarifa separada.
+> Seccion pendiente de confirmacion con Eduardo Chediak.
 
-**Consulte disponibilidad y tarifas actualizadas.**
+### Estructura propuesta
 
-Paquetes especiales disponibles para:
-- Lunas de miel y parejas
-- Escapadas de fin de semana (viernes a domingo)
-- Paquetes con excursión a cayos incluida
-- Estadías prolongadas
+| Tipo de Habitacion | Temporada baja | Temporada alta |
+|-------------------|----------------|----------------|
+| Boutique Estandar | Por confirmar | Por confirmar |
+| Boutique Superior | Por confirmar | Por confirmar |
+| Suite Boutique | Por confirmar | Por confirmar |
 
-**CTA:** Consultar disponibilidad
+**Notas:**
+- Tarifas en USD
+- Temporada alta: Semana Santa, Carnaval, julio-agosto, diciembre
+- Excursiones a los cayos no incluidas en tarifa base (se contratan aparte)
+- Check-in: 3:00 PM / Check-out: 12:00 PM
+- Ninos menores de 5 anos: sin cargo adicional
 
 ---
 
 ## Contacto
 
-- **Teléfono:** 0422 645 4665
-- **Email:** reservas@tibisayhoteles.com
-- **Web:** tibisayhoteles.com/morrocoy
-- **Dirección:** Morrocoy, Estado Falcón, Venezuela
+| Canal | Dato |
+|-------|------|
+| Telefono | 0422 645 4665 |
+| WhatsApp | [Numero pendiente de asignacion] |
+| Email | [Pendiente: morrocoy@tibisayhoteles.com] |
+| Web | tibisayhoteles.com/morrocoy |
 
-**Horario de atención:** Recepción abierta de 7:00 AM a 10:00 PM
+**Horario de atencion:** Lunes a domingo, 7:00 AM - 10:00 PM (hora Venezuela)
 
 ---
 
-## SEO
-
-- **Title:** Hotel Tibisay Morrocoy | Hotel Boutique en Parque Nacional Morrocoy
-- **Meta Description:** Hotel Tibisay Morrocoy: hotel boutique exclusivo con acceso al Parque Nacional Morrocoy. Cayos de arena blanca, snorkeling, kayak y atención personalizada. Tu refugio íntimo en el Caribe venezolano. Reserva ahora.
-- **H1:** Hotel Tibisay Morrocoy — Tu refugio boutique frente al Caribe
-- **Keywords:** hotel morrocoy venezuela, hotel boutique morrocoy, hospedaje parque nacional morrocoy, hotel cayos morrocoy, tibisay morrocoy, hotel tucacas chichiriviche, playa morrocoy hotel, hotel falcón venezuela, excursión cayos morrocoy
-- **URL canónica:** tibisayhoteles.com/morrocoy
+*Contenido generado por OVA VISION · v2026-03-25*
