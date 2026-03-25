@@ -1,153 +1,165 @@
-# Tibisay Catatumbo — Contenido Web
-<!-- Versión: v2026-03-25 | Sede: Catatumbo | Tono: Explorador, único en el mundo -->
+# Tibisay Catatumbo
+
+**Version:** v2026-03-25
+**Sede:** Tibisay Catatumbo
+**Estado:** Zulia, Venezuela
+**Telefono:** 0424 723 9935
+**Razon Social:** (Pendiente)
+**PMS:** Sin PMS identificado
+
+---
+
+## SEO Meta
+
+```yaml
+title: "Tibisay Catatumbo | Expedicion al Relampago del Catatumbo"
+description: "Vive la expedicion al Relampago del Catatumbo, el fenomeno natural mas electrizante del planeta. Tibisay Catatumbo te lleva al unico lugar del mundo donde los rayos iluminan el cielo 297 noches al ano."
+keywords: "Catatumbo, relampago, Relampago del Catatumbo, expedicion, fenomeno natural, Lago de Maracaibo, Zulia, rayos, turismo de aventura, Venezuela"
+slug: "/catatumbo"
+og_image: "assets/catatumbo-hero.jpg"
+lang: "es"
+```
 
 ---
 
 ## Hero
 
-**Headline:** El único espectáculo del planeta que no necesita escenario
-
-**Subheadline:** Tibisay Catatumbo: tu campamento base para presenciar el Relámpago del Catatumbo, el fenómeno natural más electrizante del mundo. Una expedición que vas a contar por el resto de tu vida.
-
-**CTA:** Reserva tu expedición al Relámpago
+**Titular:** El espectaculo mas electrizante del planeta
+**Subtitulo:** Tibisay Catatumbo — expediciones al Relampago del Catatumbo, el fenomeno natural unico en el mundo donde miles de rayos iluminan el cielo noche tras noche.
+**CTA:** Reserva tu expedicion
 
 ---
 
 ## Sobre el Hotel
 
-Tibisay Catatumbo no es un hotel — es el punto de partida de una experiencia que solo existe aquí, en este rincón del planeta.
+Tibisay Catatumbo no es un hotel convencional: es una base de expedicion para uno de los fenomenos naturales mas extraordinarios del planeta. El Relampago del Catatumbo — tambien conocido como el "Faro de Maracaibo" — produce un promedio de 28 rayos por minuto durante tormentas que iluminan el cielo hasta 297 noches al ano en la desembocadura del rio Catatumbo en el Lago de Maracaibo.
 
-El Relámpago del Catatumbo es un fenómeno meteorológico único en el mundo: un espectáculo de relámpagos silenciosos que iluminan el cielo nocturno sobre la desembocadura del río Catatumbo en el Lago de Maracaibo, durante hasta 300 noches al año, hasta 10 horas por noche. No hay nada parecido en ningún otro lugar de la Tierra.
+Este fenomeno meteorologico, visible a cientos de kilometros de distancia, ha servido como faro natural para navegantes durante siglos y es considerado el mayor generador de ozono troposferico del mundo. En 2014, el Relampago del Catatumbo ingreso al Libro Guinness de los Records como el lugar con la mayor concentracion de rayos por kilometro cuadrado.
 
-Nuestro campamento te ofrece la base perfecta para vivir esta experiencia: alojamiento cómodo, expediciones nocturnas guiadas y la certeza de estar en manos de un equipo que conoce estas tierras como nadie. Aquí cada noche es un espectáculo diferente, y cada amanecer trae la energía de saber que estás en un lugar verdaderamente único.
-
-### Características destacadas
-
-- Campamento base para la expedición al Relámpago del Catatumbo
-- Expediciones nocturnas guiadas con expertos locales
-- Fenómeno natural único en el mundo — récord Guinness como mayor generador de ozono del planeta
-- Navegación por el sur del Lago de Maracaibo y río Catatumbo
-- Fauna y flora del humedal lacustre
-- Experiencia de aventura auténtica
-- Trato cercano y grupos reducidos
+Desde Tibisay Catatumbo organizamos expediciones guiadas para vivir este espectaculo natural en primera fila. Nuestras cabanas te ofrecen el descanso que necesitas antes y despues de la aventura, en un entorno rodeado de la biodiversidad unica de la cuenca del lago.
 
 ---
 
-## Alojamiento
+## Habitaciones
 
-### Cabaña Explorador
-Sencilla, funcional y limpia. Para el viajero que viene por la experiencia y necesita un lugar cómodo donde descansar entre expediciones.
+### Cabana Estandar
 
-**Amenidades:**
-- Cama con mosquitero
-- Ventilación natural/ventilador
-- Baño privado
-- Ropa de cama limpia
-- Iluminación eléctrica (generador)
-- Servicio de limpieza diario
+Cabanas rusticas integradas al entorno natural de la zona. Diseno funcional pensado para expedicionarios que buscan comodidad despues de una noche de observacion del relampago.
 
-### Cabaña Premium
-Más espacio y comodidad para quienes quieren la aventura sin renunciar al confort. Detalles adicionales que hacen la diferencia después de una noche de expedición.
+- Cama doble
+- Ventilacion (natural y ventilador)
+- Bano privado
+- Mosquiteros
+- Iluminacion tenue (para no afectar la observacion nocturna)
+- Almacenamiento para equipo
 
-**Amenidades:**
-- Cama matrimonial con ropa de cama de calidad
-- Mosquitero premium
-- Ventilación natural/ventilador
-- Baño privado con agua caliente
-- Hamaca en área privada
-- Iluminación eléctrica
-- Amenidades de baño
-- Mesa auxiliar y sillas
-- Servicio de limpieza diario
+### Cabana Doble
+
+Mayor espacio para parejas o companeros de expedicion. Misma integracion con el entorno, con comodidades adicionales.
+
+- 2 camas individuales o 1 cama queen
+- Ventilacion (natural y ventilador)
+- Bano privado
+- Mosquiteros
+- Area de estar pequena
+- Almacenamiento para equipo
+
+### Cabana Familiar / Grupal
+
+Espacios amplios para familias o grupos de expedicion. Ideales para compartir la experiencia del Catatumbo en conjunto.
+
+- 1 cama doble + 2 individuales
+- Ventilacion (natural y ventilador)
+- Bano privado
+- Mosquiteros
+- Area de estar
+- Almacenamiento amplio
 
 ---
 
 ## Servicios
 
-### En el Campamento
-- **Restaurante:** Cocina local con sabores zulianos y platos de la zona sur del lago. Pescado fresco de río, plátano, yuca y los ingredientes que dan identidad a esta tierra. Desayuno, almuerzo y cena incluidos en paquetes de expedición.
-- **Área común:** Espacio para compartir historias de expedición con otros viajeros. Porque parte de la experiencia es la gente que conoces aquí.
-- **Coordinación de expediciones:** Todo organizado por nuestro equipo — lanchas, guías, horarios, equipos. Tú solo tienes que estar listo para la aventura.
-- **Primeros auxilios:** Kit médico y protocolos de seguridad para todas las expediciones.
-- **Repelente e insumos:** Disponibles en el campamento. Te recomendamos traer ropa larga y oscura para la expedición nocturna.
-
-### Expediciones y Experiencias
-- **Expedición nocturna al Relámpago del Catatumbo:** LA experiencia. Navegación nocturna en lancha hasta el punto de observación óptimo sobre el Lago de Maracaibo. Verás el cielo iluminarse con miles de relámpagos silenciosos en un espectáculo de luz natural que no tiene igual. Incluye guía experto, lancha, chaleco salvavidas y la garantía de una noche inolvidable. Mejor época: mayo a noviembre (temporada de lluvias).
-- **Navegación por el Lago de Maracaibo sur:** Recorrido diurno por la zona sur del lago, donde el paisaje es completamente diferente al Maracaibo urbano. Pueblos palafíticos, pescadores tradicionales y un horizonte donde el agua y el cielo se confunden.
-- **Río Catatumbo:** Navegación por el río que da nombre al fenómeno. Selva ribereña, aves acuáticas y la tranquilidad de un ecosistema que pocos conocen.
-- **Avistamiento de fauna:** Caimanes, monos aulladores, garzas, corocoras, chigüires y una biodiversidad propia de los humedales lacustres.
-- **Pueblos del sur del lago:** Conoce las comunidades que viven junto al fenómeno — su historia, su relación con el relámpago y su forma de vida ligada al agua.
-- **Fotografía nocturna:** Traé tu cámara con trípode. El Relámpago del Catatumbo es uno de los sujetos fotográficos más impresionantes del mundo. Te damos tips de configuración para capturar los relámpagos.
+| Servicio | Descripcion |
+|----------|------------|
+| Expedicion al Relampago | Salidas nocturnas guiadas en embarcacion para observar el Relampago del Catatumbo desde puntos privilegiados |
+| Guias especializados | Guias locales con conocimiento del fenomeno, la navegacion del lago y la zona |
+| Charla informativa | Sesion previa a la expedicion sobre la ciencia del relampago, historia y recomendaciones |
+| Restaurante | Comida tipica zuliana y opciones variadas, con enfasis en productos locales |
+| Transporte fluvial | Traslados en lancha por el rio Catatumbo y el Lago de Maracaibo |
+| Observatorio | Punto de observacion en tierra para noches con visibilidad a distancia |
+| Equipo de fotografia | Recomendaciones y asistencia basica para fotografia nocturna de rayos |
+| Transporte terrestre | Coordinacion de traslados desde Maracaibo o poblaciones cercanas |
 
 ---
 
-## Ubicación
+## Ubicacion
 
-**Dirección:** Zona del Catatumbo, Estado Zulia, Venezuela
+**Direccion:** Zona del rio Catatumbo, sur del Lago de Maracaibo, Estado Zulia, Venezuela
 
-**Cómo llegar:**
-- **Por aire + tierra:** Vuelo a Maracaibo (Aeropuerto La Chinita, MAR), luego traslado terrestre hacia el sur del lago (~3-4 horas). El viaje en sí ya es parte de la aventura.
-- **Por tierra:** Desde Maracaibo, ruta hacia el sur del Lago de Maracaibo pasando por pueblos como Santa Bárbara del Zulia, El Vigía y la zona del Catatumbo.
-- **Traslados:** Incluidos en los paquetes de expedición desde Maracaibo. No recomendamos llegar por cuenta propia sin coordinación previa.
+**Como llegar:**
+- **Desde Maracaibo:** Transporte terrestre hacia el sur del lago (aproximadamente 3-4 horas) + transporte fluvial hasta la base de expedicion
+- **Desde otras ciudades:** Via Maracaibo como punto de conexion
+- **Importante:** El acceso final es por via fluvial. Tibisay Catatumbo coordina el transporte completo desde Maracaibo.
 
-<!-- NOTA DEV: Insertar Google Maps embed aquí -->
-<!-- Coordenadas aproximadas: 9.0° N, 71.5° W (zona del Catatumbo) -->
-<!-- Usar iframe responsive con lazy loading -->
+**Coordenadas:** [Pendiente de confirmacion]
+
+**Google Maps:** [Enlace pendiente]
+
+**Referencia:** La zona de observacion se encuentra en la desembocadura del rio Catatumbo en el Lago de Maracaibo, en la region del Parque Nacional Cienaga de Juan Manuel.
 
 ---
 
-## Galería
+## Galeria
 
-<!-- NOTA DEV: Sección de galería fotográfica -->
-<!-- Fotos requeridas: -->
-<!-- - Relámpago del Catatumbo (fotografía nocturna, larga exposición) -->
-<!-- - Campamento/cabañas (exterior e interior) -->
-<!-- - Navegación nocturna (expedición) -->
-<!-- - Lago de Maracaibo sur (paisajes diurnos) -->
-<!-- - Río Catatumbo -->
-<!-- - Fauna (caimanes, aves, monos) -->
-<!-- - Pueblos palafíticos -->
-<!-- - Atardeceres sobre el lago -->
-<!-- - Viajeros en expedición -->
-<!-- Formato: WebP optimizado, lazy loading, grid responsive -->
-<!-- Mínimo 10-15 fotos de alta calidad -->
-<!-- NOTA: Las fotos nocturnas del relámpago son CLAVE para esta sede -->
+> Seccion pendiente de assets fotograficos. Se requieren imagenes de:
+> - Relampago del Catatumbo (fotografias nocturnas de larga exposicion)
+> - Cabanas exteriores e interiores
+> - Embarcaciones y expediciones
+> - Rio Catatumbo y Lago de Maracaibo
+> - Flora y fauna de la cuenca
+> - Guias y equipo en accion
+> - Atardeceres previos a la tormenta
+> - Comunidades locales
+
+**Formato requerido:** JPG optimizado, max 200KB por imagen, resolucion minima 1200x800px.
+**Naming convention:** catatumbo-[tema]-[numero].jpg (ej: catatumbo-relampago-01.jpg)
 
 ---
 
 ## Tarifas
 
-Las tarifas funcionan por paquetes de expedición que incluyen alojamiento, alimentación, traslados y excursiones guiadas. Varían según duración, tipo de cabaña y actividades seleccionadas.
+> Seccion pendiente de confirmacion con Eduardo Chediak.
 
-**Consulte disponibilidad y tarifas actualizadas.**
+### Estructura propuesta
 
-Paquetes disponibles:
-- **2 días / 1 noche:** Expedición nocturna al Relámpago + navegación diurna
-- **3 días / 2 noches:** Doble expedición nocturna + navegación río Catatumbo + pueblos
-- **Paquetes combinados:** Catatumbo + Maracaibo (con estadía en Hotel Tibisay Del Lago)
-- **Expediciones a medida:** Para grupos, fotógrafos y viajeros con intereses específicos
+| Tipo | Temporada baja | Temporada alta |
+|------|----------------|----------------|
+| Cabana Estandar | Por confirmar | Por confirmar |
+| Cabana Doble | Por confirmar | Por confirmar |
+| Cabana Familiar/Grupal | Por confirmar | Por confirmar |
+| Paquete Expedicion (2D/1N) | Por confirmar | Por confirmar |
+| Paquete Completo (3D/2N) | Por confirmar | Por confirmar |
 
-**Temporada recomendada:** Mayo a noviembre (mayor actividad eléctrica). El fenómeno puede observarse todo el año, pero la temporada de lluvias ofrece el espectáculo más intenso.
-
-**CTA:** Reservar expedición
+**Notas:**
+- Tarifas en USD
+- Los paquetes de expedicion incluyen alojamiento, comidas, transporte fluvial y guia
+- Temporada alta de relampagos: mayo a noviembre (mayor frecuencia de tormentas electricas)
+- La visibilidad del fenomeno depende de condiciones climaticas; no se garantiza observacion en cada salida
+- Se recomienda un minimo de 2 noches para maximizar probabilidades de observacion
 
 ---
 
 ## Contacto
 
-- **Teléfono:** 0424 723 9935
-- **Email:** reservas@tibisayhoteles.com
-- **Web:** tibisayhoteles.com/catatumbo
-- **Dirección:** Zona del Catatumbo, Estado Zulia, Venezuela
+| Canal | Dato |
+|-------|------|
+| Telefono | 0424 723 9935 |
+| WhatsApp | [Numero pendiente de asignacion] |
+| Email | [Pendiente: catatumbo@tibisayhoteles.com] |
+| Web | tibisayhoteles.com/catatumbo |
 
-**Horario de atención:** Atención en horario diurno. Para reservas, contactar con anticipación.
+**Horario de atencion:** Lunes a domingo, 8:00 AM - 8:00 PM (hora Venezuela)
 
 ---
 
-## SEO
-
-- **Title:** Tibisay Catatumbo | Expedición al Relámpago del Catatumbo, Venezuela
-- **Meta Description:** Tibisay Catatumbo: expedición al Relámpago del Catatumbo, el fenómeno natural más electrizante del mundo. Campamento base con cabañas, expediciones nocturnas guiadas y navegación por el Lago de Maracaibo sur. Reserva tu aventura única.
-- **H1:** Tibisay Catatumbo — El único espectáculo del planeta que no necesita escenario
-- **Keywords:** relámpago del catatumbo, catatumbo lightning tour, expedición catatumbo venezuela, campamento catatumbo, tibisay catatumbo, fenómeno catatumbo excursión, turismo catatumbo zulia, relámpago catatumbo paquetes, lago maracaibo sur
-- **URL canónica:** tibisayhoteles.com/catatumbo
+*Contenido generado por OVA VISION · v2026-03-25*
