@@ -1,288 +1,242 @@
-# PMS Bridge — Puente PMS a Google Sheets · Hoteles Tibisay
+# PMS Bridge — Puente PMS a Google Sheets
 
 **Version:** v2026-03-25
-**Estado:** Diseno completado, implementacion pendiente
-**Tipo de integracion:** Manual/semiautomatica (sin APIs disponibles)
+**Estado:** Diseno conceptual, pendiente de implementacion
+**Dependencia:** Confirmacion de capacidades de exportacion de cada PMS
 
 ---
 
-## 1. Estado Actual de los PMS
+## Resumen
 
-Todas las sedes de Hoteles Tibisay utilizan sistemas PMS (Property Management System) de escritorio, sin interfaces web ni APIs documentadas. Esto imposibilita una integracion automatica directa.
+Los hoteles de la cadena Tibisay utilizan sistemas PMS (Property Management System) de escritorio que no disponen de APIs para integracion directa. Este documento describe la estrategia de puente manual y semiautomatico entre los PMS y Google Sheets, que es la base operativa central del ecosistema digital.
 
-### Inventario de PMS
-
-| Sede | PMS | Tipo | API disponible | Exportacion de datos | Contacto soporte |
-|------|-----|------|---------------|---------------------|-----------------|
-| Merida | Hospes | Escritorio | No confirmada | No confirmada | Sr. Vizcaya — 0414 518 4092 |
-| Margarita | Hospes | Escritorio | No confirmada | No confirmada | Sr. Vizcaya — 0414 518 4092 |
-| Maracaibo | Hospes | Escritorio | No confirmada | No confirmada | Sr. Vizcaya — 0414 518 4092 |
-| Maturin | Ratio | Escritorio | No confirmada | No confirmada | Sr. Rojas — 0414 640 0161 |
-| Canaima | Ninguno | — | — | — | — |
-| Morrocoy | New Hotel | Escritorio | No confirmada | No confirmada | Sr. Rafael Clemente — 0412 622 7724 |
-| Catatumbo | Ninguno | — | — | — | — |
-
-### Restricciones clave
-
-1. **Sin APIs:** Los PMS son aplicaciones de escritorio Windows, no tienen APIs REST/SOAP documentadas
-2. **Sin acceso a BD:** No se ha confirmado acceso a las bases de datos subyacentes (probablemente SQL Server, MySQL o SQLite local)
-3. **Sin exportaciones automaticas:** No se ha confirmado si los PMS permiten exportar datos automaticamente (CSV, Excel, etc.)
-4. **Decision del cliente:** Eduardo Chediak decidio que la integracion se maneje por separado — no instalar nada en los servidores/computadoras del hotel
-5. **Dos sedes sin PMS:** Canaima y Catatumbo no tienen sistema de gestion hotelera
-
----
-
-## 2. Solucion: Puente Manual via Google Sheets
-
-Dado que no hay integracion directa posible, el flujo es **semimanual**: el recepcionista registra manualmente los datos del checkout en Google Sheets, lo cual dispara las automatizaciones.
-
-### Flujo del puente
+### El Problema
 
 ```
-┌─────────────────────┐
-│ Huesped hace        │
-│ checkout en el      │
-│ hotel               │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐     ┌─────────────────────┐
-│ Recepcionista       │     │ Recepcionista        │
-│ procesa checkout    │────▶│ registra datos en    │
-│ en el PMS           │     │ Google Sheets        │
-│ (Hospes/Ratio/      │     │ (navegador o app)    │
-│  New Hotel)         │     │                      │
-└─────────────────────┘     └──────────┬──────────┘
-                                       │
-                                       ▼
-                            ┌─────────────────────┐
-                            │ Make detecta nueva   │
-                            │ fila (polling cada   │
-                            │ 15 minutos)          │
-                            └──────────┬──────────┘
-                                       │
-                          ┌────────────┼────────────┐
-                          │            │            │
-                          ▼            ▼            ▼
-                    ┌──────────┐ ┌──────────┐ ┌──────────┐
-                    │ WhatsApp │ │ Email    │ │ Dashboard│
-                    │ (2h)     │ │ sequence │ │ update   │
-                    └──────────┘ └──────────┘ └──────────┘
+┌─────────────────────┐          ┌──────────────────┐
+│   PMS de Escritorio │    X     │  Google Sheets   │
+│   (sin API)         │─────────>│  (Base Operativa) │
+│                     │  No hay  │                  │
+│                     │  conexion│                  │
+└─────────────────────┘ directa  └──────────────────┘
 ```
 
-### Tiempo adicional para el recepcionista
-
-- **Estimado:** 1-2 minutos por checkout
-- **Datos a ingresar:** 8 campos (fecha, hora, nombre, telefono, email, habitacion, noches, tipo)
-- **Herramienta:** Google Sheets en navegador web o app movil de Google Sheets
-
----
-
-## 3. Datos que Cruzan el Puente
-
-### Datos disponibles en el PMS (que el recepcionista puede extraer)
-
-| Dato | Disponible en Hospes | Disponible en Ratio | Disponible en New Hotel |
-|------|---------------------|--------------------|-----------------------|
-| Nombre del huesped | Si | Si | Si |
-| Telefono | Si | Si | Si |
-| Email | Probablemente | Probablemente | Probablemente |
-| Fecha check-in | Si | Si | Si |
-| Fecha check-out | Si | Si | Si |
-| Numero de habitacion | Si | Si | Si |
-| Tipo de habitacion | Si | Si | Si |
-| Noches | Calculable | Calculable | Calculable |
-| Tarifa pagada | Si | Si | Si |
-| Metodo de pago | Si | Si | Si |
-| Nacionalidad | Probablemente | Probablemente | Probablemente |
-| Motivo de viaje | Variable | Variable | Variable |
-
-### Datos que se registran en el puente (Google Sheets)
-
-Solo se transfieren los datos necesarios para las automatizaciones:
-
-| Campo | Uso |
-|-------|-----|
-| Nombre | Personalizar WhatsApp y emails |
-| Telefono | Enviar encuesta WhatsApp |
-| Email | Enviar secuencia de email |
-| Habitacion | Referencia en alertas de rescate |
-| Noches | Segmentacion (estadia corta vs larga) |
-| Tipo (nacional/intl/corp) | Segmentacion de email y tono de comunicacion |
-
-> **Nota:** No se transfieren datos financieros (tarifa, metodo de pago) al puente por razones de privacidad y porque no son necesarios para las automatizaciones actuales.
-
----
-
-## 4. Procedimiento por PMS
-
-### 4.1 Hospes (Merida, Margarita, Maracaibo)
+### La Solucion: Puente Manual
 
 ```
-1. Completar el proceso de checkout normal en Hospes
-2. Antes de cerrar la ficha del huesped, copiar:
-   - Nombre completo
-   - Telefono (verificar formato)
-   - Email
-   - Numero de habitacion
-3. Abrir Google Sheets (mantener pestaña abierta en el navegador)
-4. Ingresar los datos en la fila correspondiente
-5. Verificar que el telefono tenga formato +58...
-6. Continuar con el siguiente checkout
-```
-
-**Tip para Hospes:** Si Hospes permite mantener la ficha del huesped abierta mientras se usa el navegador, abrir ambas ventanas lado a lado para agilizar el proceso.
-
-### 4.2 Ratio (Maturin)
-
-```
-1. Completar el proceso de checkout normal en Ratio
-2. Desde la pantalla de checkout, anotar los datos del huesped
-3. Abrir Google Sheets e ingresar los datos
-4. Formato de telefono: +58...
-```
-
-**Contacto para dudas con Ratio:** Sr. Rojas — 0414 640 0161
-
-### 4.3 New Hotel (Morrocoy)
-
-```
-1. Completar el proceso de checkout en New Hotel
-2. Extraer datos del huesped de la ficha
-3. Ingresar en Google Sheets
-```
-
-**Contacto para dudas con New Hotel:** Sr. Rafael Clemente — 0412 622 7724
-
-### 4.4 Sin PMS (Canaima, Catatumbo)
-
-```
-1. Registrar el checkout en el libro/registro manual de la sede
-2. Ingresar los datos directamente en Google Sheets
-3. Para Canaima: verificar si el huesped prefiere comunicacion en ingles
-   (marcar en observaciones: "Idioma: EN")
+┌─────────────────────┐     ┌───────────────────┐     ┌──────────────────┐
+│   PMS de Escritorio │     │  Recepcionista    │     │  Google Sheets   │
+│                     │────>│  registra checkout│────>│  (Pestana        │
+│  Checkout ocurre    │     │  manualmente      │     │   Checkouts)     │
+└─────────────────────┘     └───────────────────┘     └────────┬─────────┘
+                                                               │
+                                                      ┌────────▼─────────┐
+                                                      │  Make detecta    │
+                                                      │  nueva fila      │
+                                                      │  -> Flujo 1      │
+                                                      └──────────────────┘
 ```
 
 ---
 
-## 5. Plan Futuro: Integracion Semi-Automatica
+## Sistemas PMS por Sede
 
-### Fase 1 (actual): 100% manual
+### Hospes (3 sedes)
 
-El recepcionista ingresa todos los datos manualmente. Es el flujo mas simple y no requiere modificaciones al PMS ni coordinacion con proveedores.
+| Dato | Detalle |
+|------|---------|
+| Sedes | Merida, Margarita, Maracaibo (Del Lago) |
+| Tipo | Aplicacion de escritorio |
+| Contacto tecnico | Sr. Vizcaya — 0414 518 4092 |
+| API disponible | No confirmada |
+| Exportacion | Pendiente de verificar (posible CSV/Excel) |
+| Base de datos | Pendiente de verificar (posible SQL Server o Access) |
 
-### Fase 2 (corto plazo): Exportacion CSV/Excel
+**Acciones pendientes con Sr. Vizcaya:**
+1. Confirmar si Hospes permite exportar listado de checkouts diarios (CSV, Excel o similar)
+2. Confirmar si la base de datos es accesible localmente (SQL Server, MySQL, Access)
+3. Preguntar si existe algun modulo de reportes automaticos o programados
+4. Evaluar si se puede crear un script local que lea la BD y suba a Sheets (requiere acceso al servidor)
+5. Consultar sobre la version de Hospes instalada y si hay actualizaciones con funcionalidad web
 
-**Objetivo:** Reducir la carga manual aprovechando exportaciones del PMS.
+### Ratio (1 sede)
 
-**Pasos para investigar:**
-
-1. Contactar a cada proveedor de PMS y preguntar:
-   - ¿El sistema permite exportar una lista de checkouts del dia en CSV o Excel?
-   - ¿Con que frecuencia se puede exportar? (manual, programada)
-   - ¿Que campos incluye la exportacion?
-   - ¿Es necesario algun modulo adicional o licencia?
-
-2. Si la exportacion es posible:
-   - Configurar exportacion diaria (preferiblemente automatica a una carpeta)
-   - Crear un flujo en Make que lea el archivo exportado y lo importe a Google Sheets
-   - Reducir la carga del recepcionista a: exportar + verificar
-
-### Fase 3 (mediano plazo): Acceso directo a base de datos
-
-**Objetivo:** Lectura automatica de los checkouts directamente desde la base de datos del PMS.
-
-**Requisitos:**
-
-1. Permiso del proveedor de PMS para acceder a la base de datos en modo lectura
-2. Documentacion del esquema de la base de datos (tablas, campos)
-3. Conectividad: el servidor del PMS debe ser accesible (red local o remoto)
-4. Seguridad: acceso solo de lectura, usuario con permisos minimos
-
-**Preguntas para los proveedores:**
-
-| Pregunta | Para |
-|----------|------|
-| ¿Que motor de base de datos usa el PMS? (SQL Server, MySQL, SQLite, Access) | Todos |
-| ¿Es posible crear un usuario de solo lectura? | Todos |
-| ¿La base de datos es local o en red? | Todos |
-| ¿Tienen documentacion del esquema? | Todos |
-| ¿Ofrecen algun tipo de API, webhook o integracion? | Todos |
-| ¿Hay costo adicional por acceso a la base de datos? | Todos |
-
-### Fase 4 (largo plazo): Integracion PMS nativa
-
-**Objetivo:** Que el PMS notifique automaticamente al ecosistema cuando ocurre un checkout.
-
-Esto depende completamente de la voluntad y capacidad tecnica de los proveedores de PMS. Es el escenario ideal pero el menos probable a corto plazo.
-
----
-
-## 6. Contactos de Proveedores PMS
-
-### Hospes (3 sedes: Merida, Margarita, Maracaibo)
-
-| Campo | Detalle |
-|-------|---------|
-| Contacto | Sr. Vizcaya |
-| Telefono | 0414 518 4092 |
-| Sedes | Merida, Margarita, Maracaibo |
-| Preguntas pendientes | Exportacion CSV, acceso a BD, esquema de datos |
-
-### Ratio (1 sede: Maturin)
-
-| Campo | Detalle |
-|-------|---------|
-| Contacto | Sr. Rojas |
-| Telefono | 0414 640 0161 |
+| Dato | Detalle |
+|------|---------|
 | Sede | Maturin |
-| Preguntas pendientes | Exportacion CSV, acceso a BD, esquema de datos |
+| Tipo | Aplicacion de escritorio |
+| Contacto tecnico | Sr. Rojas — 0414 640 0161 |
+| API disponible | No confirmada |
+| Exportacion | Pendiente de verificar |
+| Base de datos | Pendiente de verificar |
 
-### New Hotel (1 sede: Morrocoy)
+**Acciones pendientes con Sr. Rojas:**
+1. Mismas preguntas que para Hospes
+2. Adicionalmente: confirmar si Ratio tiene algun tipo de webhook o notificacion al completar un checkout
 
-| Campo | Detalle |
-|-------|---------|
-| Contacto | Sr. Rafael Clemente |
-| Telefono | 0412 622 7724 |
+### New Hotel (1 sede)
+
+| Dato | Detalle |
+|------|---------|
 | Sede | Morrocoy |
-| Preguntas pendientes | Exportacion CSV, acceso a BD, esquema de datos |
+| Tipo | Aplicacion de escritorio |
+| Contacto tecnico | Sr. Rafael Clemente — 0412 622 7724 |
+| API disponible | No confirmada |
+| Exportacion | Pendiente de verificar |
+| Base de datos | Pendiente de verificar |
 
-### Sin PMS (Canaima, Catatumbo)
+**Acciones pendientes con Sr. Rafael Clemente:**
+1. Mismas preguntas que para Hospes
+2. Consultar version del software y opciones de integracion
 
-Para estas sedes, considerar implementar una solucion ligera en el futuro:
+### Sin PMS (2 sedes)
 
-- **Opcion 1:** Google Forms como "mini-PMS" para registro de huespedes
-- **Opcion 2:** Hoja de calculo local sincronizada con Google Sheets
-- **Opcion 3:** App movil simple (si hay conectividad confiable)
+| Sede | Estado |
+|------|--------|
+| Canaima | Sin PMS identificado — el registro es manual |
+| Catatumbo | Sin PMS identificado — el registro es manual |
 
-> **Nota sobre Canaima:** La conectividad a internet no esta confirmada. Si no hay internet estable, el registro en Google Sheets debera hacerse en lotes cuando haya conexion, o via SMS/offline-first approach.
-
----
-
-## 7. Consideraciones de Seguridad y Privacidad
-
-- Los datos de huespedes (nombre, telefono, email) son **datos personales**
-- Solo se transfieren al puente los datos estrictamente necesarios para las automatizaciones
-- No se transfieren datos financieros (tarifa, metodo de pago, datos de tarjeta)
-- Google Sheets tiene permisos controlados (ver documentacion de Sheets)
-- Las cuentas de acceso deben tener autenticacion de 2 factores habilitada
-- En caso de solicitud de eliminacion de datos por un huesped, contactar a OVA VISION
+**Implicacion:** Para estas sedes, el input en Google Sheets es el unico registro de checkout. No hay puente porque no hay sistema de origen.
 
 ---
 
-## 8. Metricas del Puente
+## Estrategias de Puente (de menor a mayor automatizacion)
 
-Para evaluar la efectividad del puente manual:
+### Nivel 1: Input 100% Manual (Implementacion inmediata)
 
-| Metrica | Como medir | Objetivo |
-|---------|-----------|----------|
-| Tasa de registro | Checkouts en Sheets / Checkouts en PMS | > 95% |
-| Tiempo de registro | Tiempo entre checkout y registro en Sheets | < 15 min |
-| Errores de formato | Filas con errores de validacion | < 5% |
-| Cobertura de email | Checkouts con email registrado / Total | > 70% |
-| Cobertura de telefono | Checkouts con telefono valido / Total | > 90% |
+**Como funciona:**
+1. El recepcionista completa el checkout en el PMS normalmente
+2. Inmediatamente despues, abre Google Sheets en el navegador o celular
+3. Llena una fila en la pestana "Checkouts" con los datos del huesped
+4. Make detecta la nueva fila y dispara los flujos automaticos
 
-> Estas metricas deben revisarse semanalmente durante el primer mes y luego mensualmente.
+**Ventajas:**
+- No requiere ningun acceso al PMS
+- Funciona con cualquier PMS (o sin PMS)
+- Se puede implementar hoy
+
+**Desventajas:**
+- Doble trabajo para el recepcionista
+- Riesgo de olvido o errores de transcripcion
+- Depende de la disciplina del personal
+
+**Mitigaciones:**
+- Formulario simplificado en Google Sheets (solo campos esenciales)
+- Validacion de datos integrada (dropdowns, formatos)
+- Recordatorio diario automatico si no hay checkouts registrados (Apps Script)
+- Capacitacion al personal de recepcion
+
+### Nivel 2: Exportacion Diaria CSV (Requiere confirmacion del PMS)
+
+**Como funciona:**
+1. Al final del dia (o turno), el recepcionista exporta los checkouts del dia desde el PMS como CSV/Excel
+2. Sube el archivo a una carpeta especifica de Google Drive
+3. Un Apps Script procesa el archivo y agrega las filas a la pestana Checkouts
+4. Make continua el flujo normalmente
+
+**Ventajas:**
+- Menos input manual (solo exportar y subir)
+- Los datos vienen directamente del PMS (menos errores)
+
+**Desventajas:**
+- Requiere que el PMS soporte exportacion (no confirmado)
+- El delay entre el checkout real y el procesamiento puede ser de horas
+- Aun requiere accion manual del recepcionista
+
+**Prerequisitos:**
+- Confirmar con cada proveedor de PMS que la exportacion es posible
+- Definir formato y mapeo de campos CSV -> Sheets
+
+### Nivel 3: Script Local de Lectura de BD (Requiere acceso al servidor)
+
+**Como funciona:**
+1. Se instala un script (Python/Node.js) en la PC donde corre el PMS
+2. El script lee la base de datos local del PMS periodicamente (cada 15-30 min)
+3. Detecta nuevos checkouts y los envia a Google Sheets via API
+4. Make continua el flujo normalmente
+
+**Ventajas:**
+- Automatizacion real — sin intervencion humana
+- Datos en tiempo real (o casi)
+- Menor margen de error
+
+**Desventajas:**
+- Requiere acceso a la base de datos del PMS (no confirmado, posiblemente no permitido)
+- Requiere instalar software adicional en la PC del hotel
+- El cliente decidio explicitamente NO instalar nada en los servidores del hotel
+- Riesgo de conflicto con el PMS si la BD se bloquea o modifica
+- Mantenimiento continuo si el PMS se actualiza
+
+**Nota del cliente:** Eduardo Chediak decidio manejar la integracion por separado y no instalar en servidores del hotel. Esta opcion queda documentada pero no se implementara sin autorizacion explicita.
+
+### Nivel 4: Google Forms como Interfaz Alternativa (Opcion hibrida)
+
+**Como funciona:**
+1. Se crea un Google Form simple con los campos de checkout
+2. El recepcionista llena el formulario desde el celular o PC (en lugar de abrir Sheets directamente)
+3. Las respuestas van automaticamente a la pestana Checkouts en Sheets
+4. Make continua el flujo normalmente
+
+**Ventajas:**
+- Interfaz mas amigable que Sheets para input rapido
+- Funciona desde el celular (ideal para Canaima/Catatumbo con internet inestable — puede llenar offline y enviar cuando hay conexion)
+- Validaciones integradas en el formulario
+
+**Desventajas:**
+- Aun es input manual
+- No lee datos del PMS directamente
+
+---
+
+## Recomendacion
+
+**Fase 1 (inmediata):** Implementar **Nivel 1** (input manual en Sheets) para todas las sedes. Complementar con **Nivel 4** (Google Forms) para Canaima y Catatumbo por la inestabilidad de internet.
+
+**Fase 2 (semana 3-4):** Contactar a los proveedores de PMS (Vizcaya, Rojas, Clemente) para evaluar si **Nivel 2** (exportacion CSV) es viable. Si alguno lo soporta, implementarlo para esas sedes.
+
+**Fase 3 (futuro):** Si el cliente autoriza y los proveedores de PMS colaboran, evaluar **Nivel 3** (script local) como solucion a largo plazo. Solo con aprobacion explicita de Eduardo Chediak.
+
+---
+
+## Contactos de Soporte PMS
+
+| PMS | Sedes | Contacto | Telefono | Estado |
+|-----|-------|----------|----------|--------|
+| Hospes | Merida, Margarita, Maracaibo | Sr. Vizcaya | 0414 518 4092 | Pendiente de contactar |
+| Ratio | Maturin | Sr. Rojas | 0414 640 0161 | Pendiente de contactar |
+| New Hotel | Morrocoy | Sr. Rafael Clemente | 0412 622 7724 | Pendiente de contactar |
+| — | Canaima | N/A | — | Sin PMS |
+| — | Catatumbo | N/A | — | Sin PMS |
+
+---
+
+## Campos Minimos para el Puente
+
+Independientemente del nivel de automatizacion, estos son los campos que deben llegar a Google Sheets desde el PMS (o manualmente):
+
+| Campo | Obligatorio | Notas |
+|-------|-------------|-------|
+| Fecha/hora checkout | Si | Del PMS o manual |
+| Nombre del huesped | Si | Nombre completo |
+| Telefono | Si | Formato +58... para WhatsApp |
+| Email | Deseable | Para email marketing |
+| Habitacion | Si | Numero o nombre |
+| Noches de estadia | Si | Para contexto en la encuesta |
+| Tipo de huesped | Si | Nacional / Internacional / Corporativo |
+| Sede | Si | Automatico si hay un Sheet por sede, o dropdown |
+| Observaciones | Opcional | Notas relevantes del recepcionista |
+
+---
+
+## Riesgos y Mitigaciones
+
+| Riesgo | Probabilidad | Impacto | Mitigacion |
+|--------|-------------|---------|-----------|
+| Recepcionista olvida registrar checkout | Alta | Alto | Recordatorios automaticos, revision diaria por sede |
+| Datos incorrectos (telefono malo, nombre mal escrito) | Media | Medio | Validacion en Sheets, formato de telefono automatico |
+| Internet inestable en sede | Media (Maracaibo, Maturin, Canaima) | Alto | Google Forms offline, sincronizacion posterior |
+| PMS no soporta exportacion | Media | Bajo | Se mantiene input manual (Nivel 1) |
+| Proveedor PMS no colabora | Baja | Bajo | No dependemos del PMS, el puente manual funciona |
 
 ---
 

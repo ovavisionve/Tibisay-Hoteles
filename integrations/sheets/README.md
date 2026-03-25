@@ -1,342 +1,327 @@
-# Google Sheets — Estructura Operativa · Hoteles Tibisay
+# Google Sheets — Base Operativa Hoteles Tibisay
 
 **Version:** v2026-03-25
-**Estado:** Estructura definida, Apps Script completado
+**Estado:** Estructura disenada, pendiente de despliegue
 **Plataforma:** Google Sheets + Google Apps Script
+**Costo:** $0 (Google Workspace gratuito)
 
 ---
 
 ## Resumen
 
-Google Sheets es la **base operativa central** del ecosistema digital de Hoteles Tibisay. Funciona como:
+Google Sheets funciona como la base de datos operativa central del ecosistema digital de Hoteles Tibisay. Todos los flujos de Make leen y escriben en estas hojas, y el dashboard consolidado se alimenta automaticamente de los datos registrados.
 
-1. Puente entre el PMS de escritorio y las automatizaciones
-2. Repositorio de respuestas de encuestas (WhatsApp + QR)
-3. Dashboard de monitoreo en tiempo real
-4. Hoja de configuracion del sistema (kill switch, parametros)
+### Arquitectura
+
+```
+┌──────────────────────────────────────────────────────┐
+│              GOOGLE SHEETS PRINCIPAL                  │
+│         "Tibisay — Base Operativa"                   │
+├──────────────────────────────────────────────────────┤
+│                                                      │
+│  ┌────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │ Checkouts  │  │ Respuestas   │  │ Respuestas   │ │
+│  │ (manual)   │  │ WhatsApp     │  │ QR           │ │
+│  └─────┬──────┘  └──────┬───────┘  └──────┬───────┘ │
+│        │                │                  │         │
+│        └────────────────┼──────────────────┘         │
+│                         │                            │
+│               ┌─────────▼──────────┐                 │
+│               │    Dashboard       │                 │
+│               │  (formulas +       │                 │
+│               │   Apps Script)     │                 │
+│               └────────────────────┘                 │
+│                                                      │
+│  ┌────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │ Config     │  │ Alertas      │  │ Errores      │ │
+│  │ (Kill      │  │ (rescate)    │  │ (log)        │ │
+│  │  Switch)   │  │              │  │              │ │
+│  └────────────┘  └──────────────┘  └──────────────┘ │
+│                                                      │
+└──────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Estructura del Workbook
-
-El workbook principal contiene las siguientes hojas (pestañas):
-
-```
-📊 Hoteles Tibisay — Base Operativa
-├── Checkouts          → Input manual por recepcionistas
-├── Respuestas WA      → Auto-poblado desde WhatsApp bot
-├── Respuestas QR      → Auto-poblado desde formularios QR
-├── Dashboard          → Formulas, promedios, alertas
-├── Alertas            → Casos de rescate pendientes
-├── Config             → Kill switch y parametros del sistema
-├── Errores            → Log de errores de automatizacion
-└── Sedes              → Datos de referencia de las 7 sedes
-```
-
----
-
-## Sheet 1: Checkouts
+## Pestana 1: Checkouts (Input Manual)
 
 ### Proposito
 
-Registro manual de cada checkout realizado por los recepcionistas. Esta hoja es el **trigger** de todas las automatizaciones.
+Los recepcionistas de cada sede registran manualmente cada checkout en esta hoja. Es el punto de entrada que dispara todo el ecosistema de encuestas y email.
 
-### Estructura de columnas
+### Columnas
 
-| Columna | Nombre | Tipo | Formato | Obligatorio | Ejemplo |
-|---------|--------|------|---------|-------------|---------|
-| A | Fecha | Fecha | DD/MM/AAAA | Si | 25/03/2026 |
-| B | Hora | Hora | HH:MM | Si | 11:30 |
-| C | Nombre | Texto | Libre | Si | Maria Garcia Lopez |
-| D | Telefono | Texto | +58XXXXXXXXXX | Si | +584141234567 |
-| E | Email | Texto | email@dominio.com | Si* | maria@gmail.com |
-| F | Habitacion | Texto | Numero | Si | 205 |
-| G | Noches | Numero | Entero | Si | 3 |
-| H | Tipo | Lista | Nacional/Internacional/Corporativo | Si | Nacional |
-| I | Sede | Texto | Auto (segun pestaña) | Automatico | Merida |
-| J | Observaciones | Texto | Libre | No | Celebraba aniversario |
-| K | WA Enviado | Texto | Auto | Automatico | SI / NO / ERROR |
-| L | Email Enviado | Texto | Auto | Automatico | SI / NO / ERROR |
-| M | Timestamp | Timestamp | Auto | Automatico | 2026-03-25T11:30:00Z |
-
-> *Email es obligatorio si esta disponible. Sin email, la secuencia de email no se dispara pero la de WhatsApp si.
+| Columna | Tipo | Obligatorio | Descripcion |
+|---------|------|-------------|------------|
+| A: Timestamp | Fecha/hora | Auto | Se genera automaticamente al ingresar la fila |
+| B: Sede | Texto (dropdown) | Si | Lista desplegable con las 7 sedes |
+| C: Nombre Huesped | Texto | Si | Nombre completo del huesped |
+| D: Telefono | Texto | Si | Formato +58... (validacion por formato) |
+| E: Email | Texto | No | Email del huesped (si se tiene) |
+| F: Habitacion | Texto | Si | Numero o nombre de la habitacion |
+| G: Noches | Numero | Si | Cantidad de noches de estadia |
+| H: Tipo Huesped | Texto (dropdown) | Si | Nacional / Internacional / Corporativo |
+| I: Observaciones | Texto | No | Notas del recepcionista |
+| J: Estado Envio WA | Texto | Auto | PENDIENTE / ENVIADO / ERROR / OMITIDO |
+| K: Estado Envio Email | Texto | Auto | PENDIENTE / ENVIADO / ERROR / OMITIDO |
+| L: Fecha Envio | Fecha/hora | Auto | Timestamp del envio de encuesta |
 
 ### Validaciones
 
-- **Columna D (Telefono):** Validacion de datos que acepta solo formato +58 seguido de 10 digitos
-- **Columna H (Tipo):** Lista desplegable con 3 opciones
-- **Columna A (Fecha):** Validacion de fecha valida
-- **Columnas K-M:** Protegidas contra edicion manual (se llenan automaticamente)
-
-### Organizacion por sede
-
-Opcion A (recomendada): **Una pestaña por sede**
-- Checkouts_Merida
-- Checkouts_Margarita
-- Checkouts_Maracaibo
-- Checkouts_Maturin
-- Checkouts_Canaima
-- Checkouts_Morrocoy
-- Checkouts_Catatumbo
-
-Opcion B: **Una sola pestaña con columna de filtro por sede**
-- Mas simple pero mas propenso a errores si recepcionistas no seleccionan la sede correcta
-
----
-
-## Sheet 2: Respuestas WhatsApp
-
-### Proposito
-
-Registro automatico de todas las respuestas recibidas del bot de WhatsApp. Esta hoja se llena automaticamente via el Flujo 5 de Make (Response Logging).
-
-### Estructura de columnas
-
-| Columna | Nombre | Tipo | Formato | Fuente |
-|---------|--------|------|---------|--------|
-| A | Timestamp | Timestamp | ISO 8601 | Auto (Make) |
-| B | Sede | Texto | Nombre de sede | Auto (del checkout) |
-| C | Nombre | Texto | Libre | Auto (del checkout) |
-| D | Telefono | Texto | +58... | Auto (del checkout) |
-| E | Calif_General | Numero | 1-5 | Respuesta del huesped |
-| F | Calif_Checkin | Numero | 1-5 | Respuesta del huesped |
-| G | Calif_Habitacion | Numero | 1-5 | Respuesta del huesped |
-| H | Calif_Restaurante | Numero | 1-5 | Respuesta del huesped |
-| I | Calif_Personal | Numero | 1-5 | Respuesta del huesped |
-| J | Calif_Limpieza | Numero | 1-5 | Respuesta del huesped |
-| K | Comentario | Texto | Libre | Respuesta del huesped |
-| L | Tags | Texto | Separados por coma | Auto (Apps Script) |
-| M | Ruta | Texto | Embajador/Retencion/Rescate | Auto (Make) |
-| N | Promedio | Numero | 1.0-5.0 | Formula |
-| O | Alerta | Texto | SI/NO | Formula |
-
-### Formulas automaticas
-
-- **Columna N (Promedio):** `=AVERAGE(E2:J2)`
-- **Columna O (Alerta):** `=IF(MIN(E2:J2)<=3,"SI","NO")`
+- **Telefono:** Regex para formato venezolano (+58 4XX XXX XXXX)
+- **Email:** Validacion de formato basica
+- **Sede:** Solo valores del dropdown (7 sedes)
+- **Tipo Huesped:** Solo valores del dropdown
+- **Noches:** Numero entero mayor a 0
 
 ### Proteccion
 
-- Toda la hoja esta protegida contra edicion manual
-- Solo la cuenta de servicio de Make tiene permisos de escritura
-- OVA VISION tiene permisos de administrador
+- Columnas J, K, L: Protegidas (solo Make puede modificarlas via API)
+- Fila 1 (encabezados): Protegida
+- Rango de datos: Libre para los recepcionistas
 
 ---
 
-## Sheet 3: Respuestas QR
+## Pestana 2: Respuestas WhatsApp
 
 ### Proposito
 
-Registro automatico de las respuestas enviadas a traves de los formularios QR. Se llena automaticamente desde Google Forms (linked) o via Make.
+Registra automaticamente (via Make — Flujo 5) todas las respuestas de las encuestas enviadas por WhatsApp.
 
-### Estructura de columnas
+### Columnas
 
-| Columna | Nombre | Tipo | Formato | Fuente |
-|---------|--------|------|---------|--------|
-| A | Timestamp | Timestamp | ISO 8601 | Auto (Google Forms) |
-| B | Sede | Texto | Nombre de sede | Seleccion del huesped |
-| C | Nombre | Texto | Libre (opcional) | Respuesta del huesped |
-| D | Email | Texto | email (opcional) | Respuesta del huesped |
-| E | Calif_General | Numero | 1-5 | Respuesta del huesped |
-| F | Calif_Checkin | Numero | 1-5 | Respuesta del huesped |
-| G | Calif_Habitacion | Numero | 1-5 | Respuesta del huesped |
-| H | Calif_Restaurante | Numero | 1-5 | Respuesta del huesped |
-| I | Calif_Personal | Numero | 1-5 | Respuesta del huesped |
-| J | Calif_Limpieza | Numero | 1-5 | Respuesta del huesped |
-| K | Comentario | Texto | Libre | Respuesta del huesped |
-| L | Tags | Texto | Separados por coma | Auto (Apps Script) |
-| M | Promedio | Numero | 1.0-5.0 | Formula |
-| N | Alerta | Texto | SI/NO | Formula |
-
-### Diferencias con Sheet 2 (WhatsApp)
-
-- No tiene columna de Telefono (el QR no lo captura obligatoriamente)
-- No tiene columna de Ruta (no hay branching en QR)
-- Nombre y Email son opcionales (el huesped puede responder anonimamente)
-- La sede se selecciona en el formulario (no se auto-detecta)
+| Columna | Tipo | Descripcion |
+|---------|------|------------|
+| A: Timestamp | Fecha/hora | Fecha y hora de la respuesta |
+| B: Sede | Texto | Sede del hotel |
+| C: Nombre | Texto | Nombre del huesped |
+| D: Telefono | Texto | Numero del huesped |
+| E: Calif. General | Numero (1-5) | Calificacion general de la estadia |
+| F: Calif. Check-in | Numero (1-5) | Calificacion del proceso de check-in |
+| G: Calif. Habitacion | Numero (1-5) | Calificacion de la habitacion |
+| H: Calif. Restaurante | Numero (1-5) | Calificacion del restaurante |
+| I: Calif. Personal | Numero (1-5) | Calificacion de la atencion del personal |
+| J: Calif. Limpieza | Numero (1-5) | Calificacion de la limpieza |
+| K: Comentario | Texto | Comentario libre del huesped |
+| L: Tags | Texto | Palabras clave detectadas automaticamente |
+| M: Ruta | Texto | Embajador / Retencion / Rescate |
+| N: Estado | Texto | Pendiente / Atendido |
+| O: Atendido Por | Texto | Nombre de quien atendio (si aplica) |
+| P: Fecha Atencion | Fecha/hora | Cuando se marco como atendido |
 
 ---
 
-## Sheet 4: Dashboard
+## Pestana 3: Respuestas QR
 
 ### Proposito
 
-Visualizacion en tiempo real de los resultados de satisfaccion de todas las sedes. Se actualiza automaticamente con formulas y Apps Script.
+Registra automaticamente las respuestas de las encuestas QR (formularios web por sede).
 
-### Secciones del Dashboard
+### Columnas
 
-#### 4.1 Resumen Ejecutivo
+| Columna | Tipo | Descripcion |
+|---------|------|------------|
+| A: Timestamp | Fecha/hora | Fecha y hora del envio del formulario |
+| B: Sede | Texto | Sede donde se escaneo el QR |
+| C: Nombre | Texto | Nombre del huesped (opcional en QR) |
+| D: Calif. General | Numero (1-5) | Calificacion general |
+| E: Calif. Habitacion | Numero (1-5) | Calificacion de la habitacion |
+| F: Calif. Restaurante | Numero (1-5) | Calificacion del restaurante |
+| G: Calif. Personal | Numero (1-5) | Calificacion del personal |
+| H: Calif. Limpieza | Numero (1-5) | Calificacion de la limpieza |
+| I: Lo Mejor | Texto | "Que fue lo mejor de tu estadia?" |
+| J: A Mejorar | Texto | "Que podemos mejorar?" |
+| K: Recomendaria | Si/No | "Recomendarias este hotel?" |
+| L: Tags | Texto | Palabras clave detectadas |
 
-| Metrica | Formula | Descripcion |
-|---------|---------|------------|
-| Promedio general (todas las sedes) | `=AVERAGE(...)` de ambas hojas de respuestas | Calificacion promedio global |
-| Total respuestas (mes actual) | `=COUNTIFS(...)` con filtro de fecha | Volumen de feedback recibido |
-| Tasa de respuesta WhatsApp | Respuestas WA / Checkouts registrados | Porcentaje de huespedes que respondieron |
-| Alertas activas | `=COUNTIF(Alertas!F:F,"Pendiente")` | Casos de rescate sin resolver |
+### Diferencia con WhatsApp
 
-#### 4.2 Promedios por Sede
-
-Tabla automatica con promedio de cada area por sede:
-
-| Sede | General | Check-in | Habitacion | Restaurante | Personal | Limpieza | Tendencia |
-|------|---------|----------|-----------|-------------|----------|----------|-----------|
-| (cada sede) | formula | formula | formula | formula | formula | formula | formula |
-
-Formula tipo: `=AVERAGEIFS(Respuestas_WA!E:E, Respuestas_WA!B:B, "Merida")`
-
-#### 4.3 Promedio Semanal con Tendencia
-
-- Calculo del promedio de los ultimos 7 dias
-- Comparacion con la semana anterior
-- Indicador visual: ↑ (mejorando), → (estable), ↓ (empeorando)
-- Formula de tendencia: compara `AVERAGEIFS` de esta semana vs semana anterior
-
-#### 4.4 Tag Frequency (Frecuencia de Palabras Clave)
-
-Tabla de las 20 palabras/frases mas mencionadas en los comentarios:
-
-| Tag | Frecuencia | Sentimiento |
-|-----|-----------|------------|
-| (palabra) | (conteo) | Positivo/Negativo/Neutro |
-
-> Esta seccion se actualiza via Apps Script (ver seccion de funciones).
-
-#### 4.5 Alertas Resumen
-
-Vista resumida de la pestaña Alertas:
-
-| Sede | Alertas pendientes | Ultima alerta | Tiempo promedio de respuesta |
-|------|-------------------|--------------|----------------------------|
-
-### Formato condicional
-
-| Rango | Regla | Color |
-|-------|-------|-------|
-| Calificaciones | >= 4.0 | Verde (#00C853) |
-| Calificaciones | 3.0 - 3.9 | Amarillo (#FFD600) |
-| Calificaciones | < 3.0 | Rojo (#FF1744) |
-| Alertas pendientes | > 0 | Rojo (#FF1744) |
-| Tendencia ↑ | Mejorando | Verde |
-| Tendencia ↓ | Empeorando | Rojo |
+- QR no tiene campo de telefono (el huesped es anonimo salvo que deje su nombre)
+- QR tiene preguntas abiertas especificas ("Lo mejor" y "A mejorar")
+- QR no tiene ruta Embajador/Retencion/Rescate (se evalua solo por calificacion)
 
 ---
 
-## Apps Script — Funciones Documentadas
+## Pestana 4: Dashboard
 
-### Archivo: `Code.gs`
+### Proposito
 
-#### Funcion 1: `updateTagFrequency()`
+Panel consolidado con metricas en tiempo real. Usa formulas de Google Sheets y Apps Script para calcular automaticamente.
+
+### Secciones
+
+#### 4.1 Resumen General
+
+| Metrica | Formula/Fuente |
+|---------|---------------|
+| Total respuestas (mes) | COUNTIFS sobre Respuestas WA + QR |
+| Calificacion promedio general | AVERAGEIFS sobre columna Calif. General |
+| % Embajadores (5/5) | COUNTIFS(Ruta="Embajador") / Total |
+| % Rescate (<=3/5) | COUNTIFS(Ruta="Rescate") / Total |
+| Tasa de respuesta WA | Enviados con respuesta / Total enviados |
+| Alertas pendientes | COUNTIFS(Estado="Pendiente", Ruta="Rescate") |
+
+#### 4.2 Metricas por Sede
+
+Tabla con una fila por sede (7 filas) y columnas:
+- Sede
+- Total respuestas
+- Promedio general
+- Promedio por area (check-in, habitacion, restaurante, personal, limpieza)
+- % Embajadores
+- % Rescate
+- Tendencia semanal (sparkline)
+
+#### 4.3 Promedio Semanal con Alertas
+
+Calculo automatico del promedio de la ultima semana. Si el promedio semanal cae por debajo de 3.5, se activa un indicador visual (celda en rojo) y se envia alerta via Apps Script.
+
+#### 4.4 Frecuencia de Tags
+
+Tabla dinamica que cuenta las palabras clave mas frecuentes en los comentarios:
+- Tag
+- Frecuencia (total)
+- Frecuencia por sede
+- Sentimiento (positivo/negativo — clasificacion manual inicial)
+
+---
+
+## Pestana 5: Alertas
+
+### Proposito
+
+Log de todas las alertas de rescate generadas por el Flujo 4 de Make.
+
+### Columnas
+
+| Columna | Tipo | Descripcion |
+|---------|------|------------|
+| A: Timestamp | Fecha/hora | Cuando se genero la alerta |
+| B: Sede | Texto | Sede del hotel |
+| C: Huesped | Texto | Nombre del huesped |
+| D: Telefono | Texto | Telefono del huesped |
+| E: Calificacion | Numero | Calificacion que disparo la alerta |
+| F: Area Critica | Texto | Area con menor calificacion |
+| G: Comentario | Texto | Comentario del huesped |
+| H: Notificado A | Texto | Flor Acosta, Eduardo Chediak |
+| I: Estado | Texto | Pendiente / Atendido / Escalado |
+| J: Atendido Por | Texto | Quien atendio |
+| K: Fecha Atencion | Fecha/hora | Cuando se resolvio |
+| L: Notas Resolucion | Texto | Como se resolvio |
+
+---
+
+## Pestana 6: Errores
+
+### Proposito
+
+Log de errores de los flujos de Make para diagnostico.
+
+### Columnas
+
+| Columna | Tipo | Descripcion |
+|---------|------|------------|
+| A: Timestamp | Fecha/hora | Cuando ocurrio el error |
+| B: Flujo | Texto | Nombre del flujo de Make que fallo |
+| C: Sede | Texto | Sede afectada |
+| D: Tipo Error | Texto | Validacion / API / Timeout / Otro |
+| E: Descripcion | Texto | Detalle del error |
+| F: Datos | Texto | Datos de la fila que causo el error (JSON) |
+| G: Estado | Texto | Pendiente / Resuelto |
+
+---
+
+## Pestana 7: Config (Kill Switch)
+
+### Proposito
+
+Control de activacion/desactivacion del sistema. Consultada por todos los flujos de Make antes de ejecutar.
+
+### Estructura
+
+| Fila | A: Parametro | B: Valor |
+|------|-------------|----------|
+| 1 | (Encabezado) | (Encabezado) |
+| 2 | Sistema Global | TRUE |
+| 3 | Merida | TRUE |
+| 4 | Margarita | TRUE |
+| 5 | Maracaibo | TRUE |
+| 6 | Maturin | TRUE |
+| 7 | Canaima | TRUE |
+| 8 | Morrocoy | TRUE |
+| 9 | Catatumbo | TRUE |
+| 10 | Delay WhatsApp (horas) | 2 |
+| 11 | Umbral Rescate | 3 |
+| 12 | Email OVA VISION | ovavision.ve@gmail.com |
+
+---
+
+## Apps Script — Funciones Principales
+
+### Funcion 1: onEdit Trigger
 
 ```
-Proposito: Analiza todos los comentarios y actualiza la tabla de tags frecuentes
-Trigger: Cada vez que se agrega una nueva respuesta (onEdit trigger)
-Hojas que lee: Respuestas_WA, Respuestas_QR
-Hoja que escribe: Dashboard (seccion Tag Frequency)
-Logica:
-  1. Recopila todos los comentarios de ambas hojas
-  2. Tokeniza y normaliza (minusculas, elimina stopwords)
-  3. Cuenta frecuencia de cada token
-  4. Clasifica sentimiento basico (lista de palabras positivas/negativas)
-  5. Escribe los top 20 en el dashboard
+Cuando se modifica la pestana Checkouts:
+  -> Validar formato de telefono
+  -> Validar campos obligatorios
+  -> Marcar Estado Envio como PENDIENTE
 ```
 
-#### Funcion 2: `checkWeeklyAverage()`
+### Funcion 2: calcularTagFrequency()
 
 ```
-Proposito: Calcula promedios semanales y envia alerta si caen por debajo de 3.5
-Trigger: Tiempo (cada lunes a las 8:00 AM)
-Hojas que lee: Respuestas_WA, Respuestas_QR
-Accion: Si promedio semanal de cualquier sede < 3.5, envia email a OVA VISION
+Ejecutar semanalmente (time-driven trigger):
+  -> Leer columna Comentario de Respuestas WA y QR
+  -> Extraer palabras clave frecuentes
+  -> Actualizar tabla de Tags en Dashboard
 ```
 
-#### Funcion 3: `formatNewRow()`
+### Funcion 3: alertaPromedioSemanal()
 
 ```
-Proposito: Auto-formatea nuevas filas ingresadas en Checkouts
-Trigger: onEdit (cuando se detecta nueva fila)
-Logica:
-  1. Valida formato de telefono (+58...)
-  2. Agrega timestamp automatico (columna M)
-  3. Resalta fila si hay datos faltantes
+Ejecutar cada lunes a las 8 AM:
+  -> Calcular promedio general de la semana anterior
+  -> Si promedio < 3.5 -> Enviar email a Flor + Eduardo + OVA VISION
+  -> Registrar en pestana Alertas
 ```
 
-#### Funcion 4: `generateWeeklyReport()`
+### Funcion 4: limpiarDatosAntiguos()
 
 ```
-Proposito: Genera un reporte semanal en PDF y lo envia por email
-Trigger: Tiempo (cada lunes a las 9:00 AM)
-Destinatarios: Eduardo Chediak, Flor Acosta, OVA VISION
-Contenido: Promedio por sede, alertas de la semana, tags mas frecuentes
+Ejecutar mensualmente:
+  -> Mover filas con mas de 6 meses a un Sheet de archivo
+  -> Mantener Sheets principal liviano
 ```
 
-#### Funcion 5: `cleanupDuplicates()`
+### Funcion 5: exportarReporteMensual()
 
 ```
-Proposito: Detecta y marca filas duplicadas en Checkouts
-Trigger: Manual (menu personalizado)
-Logica: Compara telefono + fecha para detectar duplicados
-Accion: Agrega "DUPLICADO" en observaciones, resalta fila en amarillo
+Ejecutar el 1ro de cada mes:
+  -> Generar PDF con resumen del mes anterior
+  -> Enviar por email a Eduardo Chediak + OVA VISION
 ```
 
 ---
 
-## Permisos de Acceso
+## Permisos
 
-### Estructura de permisos
-
-| Rol | Acceso | Hojas editables | Hojas solo lectura |
-|-----|--------|-----------------|-------------------|
-| **Recepcionista** | Editor limitado | Checkouts (su sede) | Dashboard |
-| **Gerente de sede** | Editor limitado | Checkouts (su sede), Alertas (su sede) | Dashboard, Respuestas |
-| **Flor Acosta** | Editor | Alertas (todas) | Todas |
-| **Eduardo Chediak** | Editor | Todas excepto Config | Todas |
-| **OVA VISION** | Administrador | Todas | Todas |
-| **Make (servicio)** | Editor API | Respuestas WA, Respuestas QR, Alertas, Errores | Checkouts, Config |
-
-### Como asignar permisos
-
-1. Compartir el workbook con el email de Google del usuario
-2. Usar la funcion "Proteger hoja" para limitar edicion por pestaña
-3. Crear vistas filtradas por sede para que cada recepcionista vea solo su sede
-4. La cuenta de servicio de Make se agrega como editor con acceso API
-
-### Cuentas necesarias
-
-| Sede | Email de acceso | Estado |
-|------|----------------|--------|
-| Merida | Pendiente | — |
-| Margarita | Pendiente | — |
-| Maracaibo | Pendiente | — |
-| Maturin | Pendiente | — |
-| Canaima | Pendiente | — |
-| Morrocoy | Pendiente | — |
-| Catatumbo | Pendiente | — |
-| OVA VISION | ovavision.ve@gmail.com | Listo |
-| Make (servicio) | Pendiente (crear cuenta de servicio) | — |
-
-> Los emails de acceso de cada sede deben ser proporcionados por Eduardo Chediak. Preferiblemente Gmail para compatibilidad con Google Sheets.
+| Rol | Acceso |
+|-----|--------|
+| OVA VISION | Editor (todas las pestanas) |
+| Eduardo Chediak | Editor (todas las pestanas) |
+| Flor Acosta | Editor (Checkouts, Alertas) / Viewer (resto) |
+| Recepcionistas | Editor (solo Checkouts de su sede) |
+| Make (Service Account) | Editor (via API — todas las pestanas) |
 
 ---
 
-## Backups
+## Notas de Implementacion
 
-- Google Sheets tiene historial de versiones nativo (Archivo → Historial de versiones)
-- Apps Script esta versionado en el editor de Apps Script
-- OVA VISION exporta backup mensual en formato .xlsx como respaldo externo
-- En caso de error grave: restaurar desde historial de versiones o backup .xlsx
-
----
-
-## Limites de Google Sheets
-
-| Recurso | Limite | Impacto |
-|---------|--------|---------|
-| Celdas por workbook | 10 millones | No se alcanzara en años |
-| Filas por hoja | 10 millones | Suficiente |
-| Peticiones API/min | 60 (lectura), 60 (escritura) | Podria ser limitante con alto volumen |
-| Apps Script ejecucion | 6 min/ejecucion, 90 min/dia | Suficiente para funciones actuales |
-
-> Si el volumen de checkouts supera 500/dia (muy improbable), considerar migrar a base de datos real (Supabase o Firebase).
+- Crear un Google Sheet por funcionalidad o un solo Sheet con multiples pestanas. **Recomendacion:** Un solo Sheet con pestanas, para simplificar las conexiones de Make.
+- Usar Data Validation para todos los dropdowns (prevenir errores de input manual).
+- Proteger celdas de formulas y columnas automaticas para evitar borrado accidental.
+- Configurar notificaciones nativas de Google Sheets como respaldo a las alertas de Make.
+- El Sheet debe estar en una cuenta de Google controlada por OVA VISION (no en cuenta personal del cliente) para garantizar continuidad.
 
 ---
 
