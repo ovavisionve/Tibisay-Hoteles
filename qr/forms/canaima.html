@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuéntanos tu experiencia — Campamento Tibisay Canaima</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #006d37 0%, #004d28 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            background: white;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #006d37;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Star Rating */
+        .rating-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .rating-group .question {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 2.2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.15s, transform 0.15s;
+            user-select: none;
+        }
+
+        .stars label:hover,
+        .stars label:hover ~ label,
+        .stars input:checked ~ label {
+            color: #f4c542;
+        }
+
+        /* Reverse order trick for CSS-only star rating */
+        .stars {
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+
+        .stars label:hover ~ label,
+        .stars input:checked ~ label {
+            color: #f4c542;
+        }
+
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: #f4c542;
+            transform: scale(1.1);
+        }
+
+        .rating-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #999;
+            padding: 0 0.5rem;
+        }
+
+        /* Recommend */
+        .recommend-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .recommend-options input {
+            display: none;
+        }
+
+        .recommend-options label {
+            flex: 1;
+            text-align: center;
+            padding: 0.6rem 0.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            background: white;
+            min-width: 80px;
+        }
+
+        .recommend-options input:checked + label {
+            border-color: #006d37;
+            background: #006d37;
+            color: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #006d37;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #004d28;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .success-message .checkmark {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-message h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .success-message p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Error */
+        .error-message {
+            display: none;
+            background: #fee;
+            color: #c00;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Campamento Tibisay Canaima</h1>
+    <p>Tu aventura en el corazón de la selva / Your jungle adventure</p>
+</div>
+
+<div class="container">
+    <div id="survey-form">
+        <p class="intro">
+            Tu opinión nos ayuda a mejorar esta experiencia única. Solo te tomará 2 minutos. / Your feedback helps us improve. It only takes 2 minutes.
+        </p>
+
+        <div class="error-message" id="error-msg"></div>
+
+        <form id="encuesta" onsubmit="return enviarEncuesta(event)">
+            <!-- Hidden: Sede -->
+            <input type="hidden" name="sede" value="Canaima">
+
+            <!-- Nombre -->
+            <div class="form-group">
+                <label>Tu nombre <span class="required">*</span></label>
+                <input type="text" name="nombre" required placeholder="Nombre completo">
+            </div>
+
+            <!-- Email (opcional) -->
+            <div class="form-group">
+                <label>Email <span style="color:#999;font-weight:normal">(opcional)</span></label>
+                <input type="email" name="email" placeholder="tu@email.com">
+            </div>
+
+            <!-- P1: Check-in / Recepción -->
+            <div class="rating-group">
+                <p class="question">¿Cómo fue tu llegada al campamento? / How was your arrival?</p>
+                <div class="stars" id="stars-q1">
+                    <input type="radio" name="q1" value="5" id="q1-5"><label for="q1-5">&#9733;</label>
+                    <input type="radio" name="q1" value="4" id="q1-4"><label for="q1-4">&#9733;</label>
+                    <input type="radio" name="q1" value="3" id="q1-3"><label for="q1-3">&#9733;</label>
+                    <input type="radio" name="q1" value="2" id="q1-2"><label for="q1-2">&#9733;</label>
+                    <input type="radio" name="q1" value="1" id="q1-1"><label for="q1-1">&#9733;</label>
+                </div>
+                <div class="rating-label"><span>Mala</span><span>Excelente</span></div>
+            </div>
+
+            <!-- P2: Habitación -->
+            <div class="rating-group">
+                <p class="question">¿Qué te pareció tu alojamiento? / How was your accommodation?</p>
+                <div class="stars" id="stars-q2">
+                    <input type="radio" name="q2" value="5" id="q2-5"><label for="q2-5">&#9733;</label>
+                    <input type="radio" name="q2" value="4" id="q2-4"><label for="q2-4">&#9733;</label>
+                    <input type="radio" name="q2" value="3" id="q2-3"><label for="q2-3">&#9733;</label>
+                    <input type="radio" name="q2" value="2" id="q2-2"><label for="q2-2">&#9733;</label>
+                    <input type="radio" name="q2" value="1" id="q2-1"><label for="q2-1">&#9733;</label>
+                </div>
+                <div class="rating-label"><span>Mala</span><span>Excelente</span></div>
+            </div>
+
+            <!-- P3: Restaurante / Servicios -->
+            <div class="rating-group">
+                <p class="question">¿Cómo fueron las excursiones y actividades? / How were the excursions?</p>
+                <div class="stars" id="stars-q3">
+                    <input type="radio" name="q3" value="5" id="q3-5"><label for="q3-5">&#9733;</label>
+                    <input type="radio" name="q3" value="4" id="q3-4"><label for="q3-4">&#9733;</label>
+                    <input type="radio" name="q3" value="3" id="q3-3"><label for="q3-3">&#9733;</label>
+                    <input type="radio" name="q3" value="2" id="q3-2"><label for="q3-2">&#9733;</label>
+                    <input type="radio" name="q3" value="1" id="q3-1"><label for="q3-1">&#9733;</label>
+                </div>
+                <div class="rating-label"><span>Mala</span><span>Excelente</span></div>
+            </div>
+
+            <!-- P4: Personal -->
+            <div class="rating-group">
+                <p class="question">¿Cómo calificarías a los guías y personal? / How would you rate the guides?</p>
+                <div class="stars" id="stars-q4">
+                    <input type="radio" name="q4" value="5" id="q4-5"><label for="q4-5">&#9733;</label>
+                    <input type="radio" name="q4" value="4" id="q4-4"><label for="q4-4">&#9733;</label>
+                    <input type="radio" name="q4" value="3" id="q4-3"><label for="q4-3">&#9733;</label>
+                    <input type="radio" name="q4" value="2" id="q4-2"><label for="q4-2">&#9733;</label>
+                    <input type="radio" name="q4" value="1" id="q4-1"><label for="q4-1">&#9733;</label>
+                </div>
+                <div class="rating-label"><span>Mala</span><span>Excelente</span></div>
+            </div>
+
+            <!-- P5: General -->
+            <div class="rating-group">
+                <p class="question">En general, ¿cómo fue tu experiencia? / Overall, how was your experience?</p>
+                <div class="stars" id="stars-q5">
+                    <input type="radio" name="q5" value="5" id="q5-5"><label for="q5-5">&#9733;</label>
+                    <input type="radio" name="q5" value="4" id="q5-4"><label for="q5-4">&#9733;</label>
+                    <input type="radio" name="q5" value="3" id="q5-3"><label for="q5-3">&#9733;</label>
+                    <input type="radio" name="q5" value="2" id="q5-2"><label for="q5-2">&#9733;</label>
+                    <input type="radio" name="q5" value="1" id="q5-1"><label for="q5-1">&#9733;</label>
+                </div>
+                <div class="rating-label"><span>Mala</span><span>Excelente</span></div>
+            </div>
+
+            <!-- Lo mejor -->
+            <div class="form-group">
+                <label>¿Qué fue lo mejor? / What was the best part?</label>
+                <textarea name="lo_mejor" placeholder="Cuéntanos..."></textarea>
+            </div>
+
+            <!-- Qué mejorar -->
+            <div class="form-group">
+                <label>¿Qué podemos mejorar? / What can we improve?</label>
+                <textarea name="que_mejorar" placeholder="Tu opinión nos ayuda a crecer..."></textarea>
+            </div>
+
+            <!-- Recomendaría -->
+            <div class="form-group">
+                <label>¿Nos recomendarías a un amigo o familiar?</label>
+                <div class="recommend-options">
+                    <input type="radio" name="recomienda" value="Sí" id="rec-si">
+                    <label for="rec-si">Sí</label>
+                    <input type="radio" name="recomienda" value="Tal vez" id="rec-talvez">
+                    <label for="rec-talvez">Tal vez</label>
+                    <input type="radio" name="recomienda" value="No" id="rec-no">
+                    <label for="rec-no">No</label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">
+                <span id="btn-text">Enviar mi opinión</span>
+                <div class="spinner" id="spinner"></div>
+            </button>
+        </form>
+    </div>
+
+    <!-- Success -->
+    <div class="success-message" id="success-msg">
+        <div class="checkmark">&#10004;</div>
+        <h2>¡Gracias! / Thank you!</h2>
+        <p>Tu feedback nos inspira. ¡La selva te espera de vuelta! / Your feedback inspires us. The jungle awaits!</p>
+    </div>
+</div>
+
+<div class="footer">
+    &copy; 2026 Hoteles Tibisay. Todos los derechos reservados.
+</div>
+
+<script>
+    // CONFIGURACIÓN: Reemplazar con la URL del Google Apps Script desplegado
+    const APPS_SCRIPT_URL = 'PENDIENTE_CONFIGURAR';
+
+    async function enviarEncuesta(e) {
+        e.preventDefault();
+
+        const form = document.getElementById('encuesta');
+        const btn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const spinner = document.getElementById('spinner');
+        const errorMsg = document.getElementById('error-msg');
+
+        // Validar que al menos las estrellas de satisfacción general estén marcadas
+        const q5 = form.querySelector('input[name="q5"]:checked');
+        if (!q5) {
+            errorMsg.textContent = 'Por favor califica al menos tu satisfacción general.';
+            errorMsg.style.display = 'block';
+            return false;
+        }
+
+        errorMsg.style.display = 'none';
+
+        // Recopilar datos
+        const data = {
+            sede: form.querySelector('input[name="sede"]').value,
+            nombre: form.querySelector('input[name="nombre"]').value,
+            email: form.querySelector('input[name="email"]').value || '',
+            q1: getRadioValue('q1'),
+            q2: getRadioValue('q2'),
+            q3: getRadioValue('q3'),
+            q4: getRadioValue('q4'),
+            q5: getRadioValue('q5'),
+            lo_mejor: form.querySelector('textarea[name="lo_mejor"]').value || '',
+            que_mejorar: form.querySelector('textarea[name="que_mejorar"]').value || '',
+            recomienda: getRadioValue('recomienda'),
+            timestamp: new Date().toISOString()
+        };
+
+        // Calcular promedio
+        const ratings = [data.q1, data.q2, data.q3, data.q4, data.q5].filter(v => v > 0);
+        data.promedio = ratings.length > 0
+            ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(2)
+            : 0;
+
+        // UI: loading state
+        btn.disabled = true;
+        btnText.style.display = 'none';
+        spinner.style.display = 'block';
+
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            // Mostrar éxito (no-cors no da response body, asumimos OK)
+            document.getElementById('survey-form').style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+
+        } catch (error) {
+            errorMsg.textContent = 'Hubo un error al enviar. Por favor intenta de nuevo.';
+            errorMsg.style.display = 'block';
+            btn.disabled = false;
+            btnText.style.display = 'inline';
+            spinner.style.display = 'none';
+        }
+
+        return false;
+    }
+
+    function getRadioValue(name) {
+        const el = document.querySelector(`input[name="${name}"]:checked`);
+        return el ? (isNaN(el.value) ? el.value : Number(el.value)) : 0;
+    }
+</script>
+
+</body>
+</html>
