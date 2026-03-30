@@ -27,6 +27,10 @@ const EMAIL_CONFIG = {
   // Remitente (se usa el email de la cuenta de Google que ejecuta el script)
   NOMBRE_REMITENTE: 'Hoteles Tibisay',
 
+  // SEDES ACTIVAS — solo estas reciben emails automaticos
+  // Agregar sedes a medida que se activen: 'Merida', 'Maracaibo', etc.
+  SEDES_ACTIVAS: ['Margarita'],
+
   // URLs de encuestas QR por sede
   URLS_ENCUESTA: {
     'Merida':    'https://tibisayhoteles.com/qr/merida.html',
@@ -182,6 +186,13 @@ function onEditHuespedes(e) {
 function procesarCheckin(sheet, row) {
   const data = obtenerDatosHuesped(sheet, row);
 
+  // Validar que la sede este activa
+  if (!EMAIL_CONFIG.SEDES_ACTIVAS.includes(data.sede)) {
+    sheet.getRange(row, 8).setValue('Sede no activa');
+    sheet.getRange(row, 8).setBackground('#fff3cd');
+    return;
+  }
+
   // Validar que tenga email y no se haya enviado ya
   if (!data.email || data.emailBienvenida === 'Enviado') return;
 
@@ -202,6 +213,13 @@ function procesarCheckin(sheet, row) {
 
 function procesarCheckout(sheet, row) {
   const data = obtenerDatosHuesped(sheet, row);
+
+  // Validar que la sede este activa
+  if (!EMAIL_CONFIG.SEDES_ACTIVAS.includes(data.sede)) {
+    sheet.getRange(row, 9).setValue('Sede no activa');
+    sheet.getRange(row, 9).setBackground('#fff3cd');
+    return;
+  }
 
   // Validar que tenga email y no se haya enviado ya
   if (!data.email || data.emailPostStay === 'Enviado') return;
