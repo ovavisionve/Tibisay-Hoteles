@@ -1,9 +1,10 @@
 # CLAUDE.md — Proyecto Hoteles Tibisay · OVA VISION
 
-**Versión:** 1.0 · Marzo 2026
+**Versión:** 2.0 · Marzo 2026 (actualizado 2026-03-30)
 **Cliente:** Hoteles Tibisay (OTHTICA)
 **Agencia:** OVA VISION · ovavision.ve@gmail.com · +58 424 578 1707
 **Contacto cliente:** Eduardo Chediak · 0424 418 61 07
+**Contacto operativo:** Flor Acosta (Dirección Corporativa) · 0412 116 68 11 · ghotelestibisay@gmail.com
 **Aprobadores de contenido:** Eduardo Chediak, Roberto Chediak, Flor Acosta
 
 ---
@@ -32,15 +33,22 @@ OVA VISION es una agencia de automatización digital venezolana. El cliente es H
 
 ## 2. LAS 7 SEDES
 
-| # | Sede | Estado | Teléfono | PMS | Internet | Razón Social |
-|---|------|--------|----------|-----|----------|-------------|
+| # | Sede | Estado | Teléfono (confirmado) | PMS | Internet | Razón Social |
+|---|------|--------|----------------------|-----|----------|-------------|
 | 1 | Hotel Tibisay Mérida | Mérida | 0424 764 8679 | Hospes | ✅ Estable | Tibisay Hotel Resort C.A. (J316011666) |
-| 2 | Hotel Tibisay Margarita | Nueva Esparta | 0424 764 8679 | Hospes | ✅ Estable | Tibisay Beach Resort 2010 C.A. (J299550383) |
+| 2 | Hotel Tibisay Margarita | Nueva Esparta | 0424 861 0339 | Hospes | ✅ Estable | Tibisay Beach Resort 2010 C.A. (J299550383) |
 | 3 | Hotel Tibisay Del Lago | Zulia (Maracaibo) | 0412 644 8918 | Hospes | ⚠️ Sin confirmar | OTHTICA (J410155299) |
 | 4 | Hotel Tibisay Maturín | Monagas | 0412 358 2965 | Ratio | ⚠️ Sin confirmar | OTHTICA (J410155299) |
 | 5 | Campamento Tibisay Canaima | Bolívar | 0424 830 8891 | — | ⚠️ Sin confirmar | OTHTICA (J410155299) |
 | 6 | Hotel Tibisay Morrocoy | Falcón | 0422 645 4665 | New Hotel | ⚠️ Sin confirmar | Hotel Tibisay Hotel Boutique Morrocoy C.A. (J507567036) |
 | 7 | Tibisay Catatumbo | Zulia | 0424 723 9935 | — | ⚠️ Sin confirmar | (pendiente) |
+
+### Datos Operativos Confirmados (2026-03-30)
+
+- **Horario de operación:** 24 horas (todas las sedes)
+- **Check-in:** 3:00 PM
+- **Check-out:** 1:00 PM
+- **Alertas de rescate:** Eduardo las recibe automáticamente por correo; Flor revisa plataformas diariamente
 
 ### Soporte técnico PMS
 
@@ -76,10 +84,12 @@ Cada sede tiene un perfil de huésped distinto. Nunca uses contenido genérico �
 
 ### Email
 
-- Sin correos corporativos @tibisayhoteles.com (tienen el dominio pero no los correos)
-- Gmail gratuito es lo que usan actualmente
-- Base de contactos: En proceso de construcción (formato Excel/CSV)
-- Segmentos: Turistas nacionales, internacionales, corporativos, grupos/eventos, recurrentes
+- Sin correos corporativos @tibisayhoteles.com (tienen el dominio pero no los correos) — **PENDIENTE configurar en cPanel**
+- Gmail actual del cliente: ghotelestibisay@gmail.com (Dirección Corporativa)
+- **Plataforma elegida:** Mailchimp (free tier: 500 contactos, 1,000 emails/mes)
+- **Cuenta Mailchimp:** Creada 2026-03-30 por OVA VISION
+- Base de contactos: **+170 contactos** de agencias de viaje y mayoristas (recibida 2026-03-30)
+- Segmentos: Mayoristas, Agencias de viaje (segmentos principales de la base actual)
 
 ### WhatsApp
 
@@ -175,7 +185,7 @@ Cada sede tiene un perfil de huésped distinto. Nunca uses contenido genérico �
 |-----------|-------------|-------|
 | Web hosting | Servicios Hosting (existente) | Incluido |
 | CMS | WordPress (existente) | $0 |
-| Email marketing | Brevo o Mailchimp (free tier) | $0-5/mes |
+| Email marketing | Mailchimp (free tier) | $0 |
 | Automatización | Make (formerly Integromat) | $0-9/mes |
 | WhatsApp API | Meta Business Platform | ~$1-3/mes |
 | Encuestas/Dashboard | Google Sheets + Apps Script | $0 |
@@ -263,75 +273,103 @@ Cada entregable genera dos versiones:
 
 ---
 
-## 9. FASE ACTUAL: SEMANA 1 — SETUP + WEB BASE
+## 9. FASE ACTUAL — ESTADO AL 2026-03-30
 
-### Tareas inmediatas
+### Decisiones tomadas
 
-1. **Auditoría del sitio actual**
-   - Revisar tibisayhoteles.com actual (estructura, contenido, plugins, tema)
-   - Evaluar qué se puede reutilizar vs. qué se rehace
-   - Documentar estado actual en web/README.md
+- **Arquitectura web:** WordPress child theme custom (tema "Tibisay Hoteles")
+- **Email marketing:** Mailchimp (free tier) — Venezuela no admitida en Brevo
+- **Backend encuestas:** Google Apps Script + Google Sheets
+- **Formularios QR:** HTML puro hosted en WordPress (no Google Forms)
 
-2. **Decisión de arquitectura web**
-   - Opción A: Rediseño sobre WordPress (tema custom child theme)
-   - Opción B: Tema starter profesional (Starter Templates, Kadence, etc.)
-   - Opción C: Migración a solución estática (Hugo/Astro + deploy en mismo hosting)
-   - Criterios: velocidad en Venezuela, facilidad de mantenimiento, costo
+### PENDIENTE — Requiere acción de OVA VISION
 
-3. **Estructura de páginas**
-   ```
-   / (Home — cadena completa)
-   /merida
-   /margarita
-   /maracaibo
-   /maturin
-   /canaima (bilingüe)
-   /morrocoy
-   /catatumbo
-   /contacto
-   /reservas (formulario centralizado o por sede)
-   ```
+#### Prioridad ALTA (esta semana)
 
-4. **Setup de correos corporativos** (prerequisito para email marketing)
-   - Configurar al menos: reservas@tibisayhoteles.com, info@tibisayhoteles.com
-   - Opciones: Google Workspace ($6/user/mes), Zoho Mail (free tier), o configuración en cPanel
+1. **Limpiar y subir base de contactos a Mailchimp**
+   - CSV con +170 contactos de agencias/mayoristas recibidos del cliente
+   - Segmentar: Mayoristas vs Agencias
+   - Importar a Mailchimp
 
-5. **Google Sheets base operativa**
-   - Crear estructura de sheets para el puente PMS → encuestas
-   - Sheet de checkouts (manual input por recepcionistas)
-   - Sheet de respuestas WhatsApp
-   - Sheet de respuestas QR
-   - Dashboard consolidado
+2. **Crear Google Sheet + instalar Apps Script**
+   - Crear Sheet "Hoteles Tibisay — Dashboard Operativo"
+   - Pegar código de `integrations/sheets/apps-script.js`
+   - Desplegar como Web App → copiar URL
+   - Seguir guía: `integrations/sheets/SETUP.md`
 
-6. **Meta Business Manager**
+3. **Configurar correos corporativos en cPanel**
+   - Crear: info@tibisayhoteles.com, reservas@tibisayhoteles.com
+   - Acceso cPanel disponible (credenciales recibidas 2026-03-30)
+
+4. **Subir formularios QR al hosting**
+   - Actualizar `APPS_SCRIPT_URL` en cada HTML
+   - Subir a `public_html/qr/` vía cPanel
+
+5. **Subir tema WordPress al hosting**
+   - Subir `web/theme/` a `wp-content/themes/tibisay/`
+   - Activar tema en WordPress admin
+   - Crear las 10 páginas y configurar permalinks
+
+6. **Configurar primer email en Mailchimp**
+   - Crear primera campaña con contenido de `email/sequences/`
+   - Enviar prueba → lanzar a lista real
+
+#### Prioridad MEDIA (próximas 2 semanas)
+
+7. **Crear Meta Business Manager**
+   - Necesita: RIF escaneado de OTHTICA (solicitar a Eduardo)
+   - Verificación toma 2-7 días hábiles
+
+8. **Configurar Make.com**
    - Crear cuenta
-   - Verificar negocio
-   - Solicitar acceso WhatsApp Business API
-   - Timeline: verificación toma 2-7 días hábiles
+   - Implementar los 6 flujos documentados en `integrations/make-flows/README.md`
+   - Conectar Sheets + WhatsApp API
+
+#### Requiere assets del cliente
+
+9. **Logo del hotel** en PNG/SVG (solicitado a Eduardo 2026-03-30)
+10. **Fotos de cada sede** — mínimo 5-10 por hotel (solicitadas)
+11. **Tarifas actualizadas** por tipo de habitación y temporada
+12. **RIF escaneado** de OTHTICA para Meta Business Manager
+13. **Razón social** de Tibisay Catatumbo (pendiente)
+
+#### Cierre del proyecto
+
+14. **Prueba end-to-end** de todos los módulos
+15. **Capacitación** al equipo de cada sede
+16. **Aprobación de contenido** por Eduardo, Roberto y Flor
 
 ---
 
-## 10. TRABAJO PREVIO COMPLETADO
+## 10. TRABAJO COMPLETADO (al 2026-03-30)
 
-Estos entregables ya existen de fases anteriores y deben integrarse, no rehacerse.
+### Desarrollo completo (70 archivos en GitHub)
 
-- ✅ Scripts WhatsApp bot: Margarita, Mérida, Maracaibo, Maturín, Canaima (con rutas Embajador/Retención/Rescate)
-- ✅ Secuencias email: Margarita, Mérida, Maracaibo, Maturín (pre-arrival, welcome, post-stay × 3 emails c/u)
-- ✅ Documentación Make: 6 flujos (checkout trigger, WhatsApp dispatch, email dispatch, rescue alerts, response logging, kill switch)
-- ✅ Google Sheets dashboard con fórmulas + Apps Script (tag frequency, weekly average alerts)
-- ✅ Demo HTML interactivo (journey completo Margarita)
-- ✅ Ficha técnica (PDF + Word editable)
-- ✅ Repositorio GitHub tibisay-digital/ con estructura markdown
+- ✅ Scripts WhatsApp bot: **7/7 sedes** con rutas Embajador/Retención/Rescate (incluye Morrocoy y Catatumbo)
+- ✅ Secuencias email: **7/7 sedes** × 3 secuencias × 3 emails = 63 emails (incluye Canaima bilingüe)
+- ✅ Tema WordPress completo: CSS mobile-first + 7 PHP templates + JS vanilla (sin jQuery)
+- ✅ Contenido web: 9 páginas (home, 7 sedes, contacto, reservas) con SEO
+- ✅ Formularios QR: **7 HTML funcionales** branded por sede con star ratings
+- ✅ Google Apps Script: Backend completo (registro QR/WhatsApp, alertas, dashboard, resumen semanal)
+- ✅ Documentación Make: 6 flujos con diagramas ASCII
+- ✅ Google Sheets: Estructura completa con 7 tabs + 5 funciones Apps Script
+- ✅ PMS Bridge: Documentación de los 3 sistemas + flujo manual
+- ✅ Docs: Ficha técnica, runbook operativo, guía de marca (placeholder)
+- ✅ Configuración WhatsApp: Códigos embajador/retención por sede, flujo técnico
+- ✅ QR: Especificaciones de impresión, URLs dinámicas
+- ✅ Cuenta Mailchimp creada
 
-### Pendiente por crear
+### Pendiente de despliegue (código listo, falta subir/configurar)
 
-- ❌ Scripts WhatsApp: Morrocoy, Catatumbo
-- ❌ Secuencias email: Canaima, Morrocoy, Catatumbo
-- ❌ Sitio web completo
-- ❌ Formularios QR por sede
+- ❌ Subir tema WordPress al hosting y activar
+- ❌ Crear páginas en WordPress (10 páginas)
+- ❌ Subir formularios QR a `public_html/qr/`
+- ❌ Crear Google Sheet + instalar Apps Script
+- ❌ Importar contactos a Mailchimp y lanzar primer email
 - ❌ Correos corporativos @tibisayhoteles.com
 - ❌ Meta Business Manager + WhatsApp Business API
-- ❌ Configuración real de Make (los flujos están documentados, no desplegados)
+- ❌ Configuración real de Make (flujos documentados, no desplegados)
+- ❌ Subir logo y fotos del cliente (pendiente assets)
 - ❌ Capacitación al equipo
 
 ---
@@ -342,13 +380,30 @@ Estos entregables ya existen de fases anteriores y deben integrarse, no rehacers
 |---------|------|
 | Dominio | tibisayhoteles.com |
 | cPanel | https://www.tibisayhoteles.com/cpanel |
-| WordPress admin | https://tibisayhoteles.com/master |
+| WordPress admin | https://tibisayhoteles.com/_master_ |
+| Email corporativo cliente | ghotelestibisay@gmail.com |
+| Email marketing | Mailchimp (cuenta OVA VISION) |
+| Repositorio | github.com/ovavisionve/Tibisay-Hoteles |
 | Contacto principal | Eduardo Chediak — 0424 418 6107 |
-| Alertas operativas | Flor Acosta + Eduardo Chediak |
+| Dirección Corporativa | Flor Acosta — 0412 116 68 11 |
+| Alertas operativas | Eduardo (automático por correo) + Flor (revisa plataformas diario) |
 | Aprobación contenido | Eduardo Chediak, Roberto Chediak, Flor Acosta |
 
-> ⚠️ Credenciales de acceso NO se almacenan en este archivo. Se manejan por canal seguro separado.
+> ⚠️ Credenciales de acceso (cPanel, WordPress, Mailchimp) NO se almacenan en este archivo. Se manejan por canal seguro separado.
 
 ---
 
-*Documento generado por OVA VISION · Marzo 2026 · Para uso exclusivo en Claude Code como contexto de proyecto*
+## 12. BASE DE CONTACTOS
+
+Base recibida del cliente el 2026-03-30 con +170 contactos de agencias de viaje y mayoristas.
+
+- **Archivo:** `email/contacts/contactos-tibisay.csv` (por crear)
+- **Segmentos:**
+  - Mayoristas (~50 contactos): Turismo Maso, Baredu, Omega, Globex, Hover Tours, etc.
+  - Agencias (~120 contactos): Agencias de viaje nacionales
+- **Plataforma destino:** Mailchimp
+- **Estado:** Pendiente limpieza y carga
+
+---
+
+*Documento generado por OVA VISION · Marzo 2026 · Actualizado 2026-03-30 · Para uso exclusivo en Claude Code como contexto de proyecto*
