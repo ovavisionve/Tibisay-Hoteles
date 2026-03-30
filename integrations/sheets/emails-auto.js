@@ -67,7 +67,7 @@ const EMAIL_CONFIG = {
   // Color por sede (para email)
   COLORES: {
     'Merida':    '#2d6a4f',
-    'Margarita': '#0077b6',
+    'Margarita': '#4a3728',
     'Maracaibo': '#1d3557',
     'Maturin':   '#264653',
     'Canaima':   '#006d37',
@@ -327,23 +327,23 @@ function enviarEmailBienvenida(data) {
       <tr>
         <td width="33%" style="text-align:center;padding:12px;">
           <div style="font-size:28px;margin-bottom:4px;">&#127754;</div>
-          <p style="margin:0;font-size:13px;font-weight:600;color:${color};">Beach Club</p>
+          <p style="margin:0;font-size:13px;font-weight:600;color:#c9a84c;">Beach Club</p>
           <p style="margin:2px 0 0;font-size:12px;color:#999;">8:00 AM – 6:00 PM</p>
         </td>
         <td width="33%" style="text-align:center;padding:12px;">
           <div style="font-size:28px;margin-bottom:4px;">&#127869;</div>
-          <p style="margin:0;font-size:13px;font-weight:600;color:${color};">Restaurante</p>
+          <p style="margin:0;font-size:13px;font-weight:600;color:#c9a84c;">Restaurante</p>
           <p style="margin:2px 0 0;font-size:12px;color:#999;">7:00 AM – 10:00 PM</p>
         </td>
         <td width="33%" style="text-align:center;padding:12px;">
           <div style="font-size:28px;margin-bottom:4px;">&#127946;</div>
-          <p style="margin:0;font-size:13px;font-weight:600;color:${color};">Piscina</p>
+          <p style="margin:0;font-size:13px;font-weight:600;color:#c9a84c;">Piscina</p>
           <p style="margin:2px 0 0;font-size:12px;color:#999;">7:00 AM – 9:00 PM</p>
         </td>
       </tr>
     </table>
 
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;background:#f0f7ff;border-radius:8px;border-left:4px solid ${color};">
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;background:#faf6ef;border-radius:8px;border-left:4px solid #c9a84c;">
       <tr><td style="padding:20px;">
         <p style="margin:0 0 4px;font-weight:700;font-size:15px;color:${color};">Necesitas algo?</p>
         <p style="margin:0;font-size:14px;color:#555;">
@@ -359,7 +359,7 @@ function enviarEmailBienvenida(data) {
   </td></tr>
 
   <!-- Footer -->
-  <tr><td style="padding:24px 40px;background:#1a1a2e;text-align:center;">
+  <tr><td style="padding:24px 40px;background:#3a2a1c;text-align:center;">
     <p style="margin:0 0 4px;font-size:14px;color:rgba(255,255,255,0.7);">Hotel Tibisay ${sede}</p>
     <p style="margin:0 0 8px;font-size:12px;color:rgba(255,255,255,0.5);">Tel: ${telefono}</p>
     <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.35);">© 2026 Hoteles Tibisay — OTHTICA. Todos los derechos reservados.</p>
@@ -441,7 +441,7 @@ function enviarEmailPostStay(data) {
     </table>
 
     <!-- CTA Encuesta -->
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin:32px 0;background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border-radius:8px;border:1px solid #d0e4f5;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:32px 0;background:linear-gradient(135deg,#faf6ef,#f5edd9);border-radius:8px;border:1px solid #e0d5c0;">
       <tr><td style="padding:32px;text-align:center;">
         <p style="margin:0 0 4px;font-size:28px;">&#11088;</p>
         <p style="margin:0 0 8px;font-size:20px;font-weight:700;color:${color};">
@@ -450,25 +450,25 @@ function enviarEmailPostStay(data) {
         <p style="margin:0 0 24px;font-size:15px;color:#555;">
           Cuentanos como fue tu experiencia. Solo toma 2 minutos y nos ayuda a mejorar.
         </p>
-        <a href="${linkEncuesta}" style="display:inline-block;background:${color};color:#fff;font-size:17px;font-weight:700;text-decoration:none;padding:16px 48px;border-radius:8px;letter-spacing:0.5px;">
+        <a href="${linkEncuesta}" style="display:inline-block;background:#c9a84c;color:#fff;font-size:17px;font-weight:700;text-decoration:none;padding:16px 48px;border-radius:8px;letter-spacing:0.5px;">
           Responder encuesta
         </a>
       </td></tr>
     </table>
 
     <!-- PROMO CANAIMA 5% -->
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin:32px 0;border-radius:8px;overflow:hidden;border:2px solid #006d37;">
-      <tr><td style="background:#006d37;padding:20px 24px;text-align:center;">
-        <p style="margin:0;font-size:12px;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:2px;text-transform:uppercase;">Oferta exclusiva para ti</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:32px 0;border-radius:8px;overflow:hidden;border:2px solid #c9a84c;">
+      <tr><td style="background:#4a3728;padding:20px 24px;text-align:center;">
+        <p style="margin:0;font-size:12px;font-weight:700;color:#c9a84c;letter-spacing:2px;text-transform:uppercase;">Oferta exclusiva para ti</p>
       </td></tr>
-      <tr><td style="padding:28px 24px;text-align:center;background:#f0faf4;">
-        <p style="margin:0 0 4px;font-size:36px;font-weight:800;color:#006d37;">5% OFF</p>
-        <p style="margin:0 0 12px;font-size:18px;font-weight:700;color:#2c3e50;">Campamento Tibisay Canaima</p>
+      <tr><td style="padding:28px 24px;text-align:center;background:#faf6ef;">
+        <p style="margin:0 0 4px;font-size:36px;font-weight:800;color:#c9a84c;">5% OFF</p>
+        <p style="margin:0 0 12px;font-size:18px;font-weight:700;color:#4a3728;">Campamento Tibisay Canaima</p>
         <p style="margin:0 0 20px;font-size:14px;color:#555;line-height:1.6;">
           Vive la experiencia del Salto Angel y la Gran Sabana. Porque ya eres parte de la familia Tibisay,
           te ofrecemos un <strong>5% de descuento</strong> en tu proxima aventura en Canaima.
         </p>
-        <p style="margin:0 0 8px;font-size:13px;color:#006d37;font-weight:600;">
+        <p style="margin:0 0 8px;font-size:13px;color:#4a3728;font-weight:600;">
           Contactanos para reservar: 0424 830 8891
         </p>
         <p style="margin:0;font-size:11px;color:#999;">
@@ -489,7 +489,7 @@ function enviarEmailPostStay(data) {
   </td></tr>
 
   <!-- Footer -->
-  <tr><td style="padding:24px 40px;background:#1a1a2e;text-align:center;">
+  <tr><td style="padding:24px 40px;background:#3a2a1c;text-align:center;">
     <p style="margin:0 0 4px;font-size:14px;color:rgba(255,255,255,0.7);">Hotel Tibisay ${sede}</p>
     <p style="margin:0 0 8px;font-size:12px;color:rgba(255,255,255,0.5);">Tel: ${EMAIL_CONFIG.TELEFONOS[sede] || ''}</p>
     <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.35);">© 2026 Hoteles Tibisay — OTHTICA. Todos los derechos reservados.</p>
