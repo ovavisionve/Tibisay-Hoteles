@@ -127,9 +127,9 @@ function crearHojaHuespedes() {
   sheet.setColumnWidth(9, 130); // Email Post-Stay
   sheet.setColumnWidth(10, 200); // Notas
 
-  // Validacion de datos para columna Sede
+  // Validacion de datos para columna Sede (solo sedes activas)
   const sedeRule = SpreadsheetApp.newDataValidation()
-    .requireValueInList(['Merida', 'Margarita', 'Maracaibo', 'Maturin', 'Canaima', 'Morrocoy', 'Catatumbo'])
+    .requireValueInList(EMAIL_CONFIG.SEDES_ACTIVAS)
     .build();
   sheet.getRange('C2:C1000').setDataValidation(sedeRule);
 
@@ -447,6 +447,30 @@ function enviarEmailPostStay(data) {
     htmlBody: htmlBody,
     name: EMAIL_CONFIG.NOMBRE_REMITENTE,
   });
+}
+
+// ============================================================
+// ACTIVAR NUEVA SEDE (ejecutar cuando se cobre un hotel nuevo)
+// ============================================================
+
+/**
+ * Actualiza el dropdown de sedes en la hoja Huespedes
+ * Ejecutar despues de agregar una sede a SEDES_ACTIVAS
+ */
+function actualizarSedesActivas() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(EMAIL_CONFIG.SHEET_HUESPEDES);
+  if (!sheet) {
+    Logger.log('Error: No se encontro la hoja "Huespedes"');
+    return;
+  }
+
+  const sedeRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(EMAIL_CONFIG.SEDES_ACTIVAS)
+    .build();
+  sheet.getRange('C2:C1000').setDataValidation(sedeRule);
+
+  Logger.log('Sedes activas actualizadas: ' + EMAIL_CONFIG.SEDES_ACTIVAS.join(', '));
 }
 
 // ============================================================
