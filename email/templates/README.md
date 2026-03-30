@@ -1,57 +1,65 @@
 # Templates HTML de Email — Hoteles Tibisay
 
-**Versión:** v2026-03-25
-**Estado:** Pendiente de diseño
+**Version:** v2026-03-30
+**Estado:** Completado
+**Plataforma:** Mailchimp (free tier)
 
 ---
 
-## Templates a Crear
+## Templates Creados
 
-Una vez definida la plataforma de email marketing (Brevo o Mailchimp), se crearán los siguientes templates HTML:
+### 1. transaccional.html — Confirmacion de Reserva
+- Confirmacion de reserva con detalles (fechas, habitacion, huespedes)
+- Datos de contacto de la sede
+- CTA a pagina de la sede
+- Variables: `{{nombre}}`, `{{sede}}`, `{{fecha_checkin}}`, `{{fecha_checkout}}`, `{{tipo_habitacion}}`, `{{num_huespedes}}`, `{{num_noches}}`, `{{numero_reserva}}`
 
-### 1. Template Transaccional
-- Confirmación de reserva
-- Usado en secuencia pre-arrival
-- Branding Tibisay + datos de la sede
+### 2. welcome.html — Bienvenida al Check-in
+- Tabla de servicios del hotel (recepcion, restaurante, Wi-Fi)
+- Seccion de descubrimiento local por sede
+- Contacto rapido (telefono habitacion + WhatsApp)
+- CTA a actividades
+- Variables: `{{nombre}}`, `{{sede}}`, `{{wifi_red}}`, `{{wifi_clave}}`, `{{horario_restaurante}}`, `{{whatsapp_sede}}`, `{{destino}}`, `{{descripcion_local}}`
 
-### 2. Template de Bienvenida
-- Welcome email al check-in
-- Información local de la sede
-- CTAs a actividades/servicios
-
-### 3. Template Post-Estadía
-- Agradecimiento + encuesta
+### 3. post-stay.html — Post-Estadia
+- Agradecimiento personalizado
+- CTA prominente a encuesta QR
 - Link a Google Review
-- Oferta de retorno
+- Oferta de retorno con descuento
+- Variables: `{{nombre}}`, `{{sede}}`, `{{link_encuesta}}`, `{{link_google_review}}`, `{{descuento_retorno}}`
 
-### 4. Template Newsletter Mensual
-- Editable por OVA VISION
-- Secciones modulares: noticias, promociones, tips de viaje
-- Footer con redes sociales y datos de contacto
+### 4. newsletter.html — Newsletter Mensual
+- Secciones modulares: noticia destacada, promociones (x2), tips de viaje, sedes
+- Editable por OVA VISION (reemplazar variables por contenido real)
+- Footer con cancelar suscripcion y preferencias
+- Variables: `{{mes_ano}}`, `{{nombre}}`, `{{titulo_noticia}}`, `{{resumen_noticia}}`, `{{promo1_titulo}}`, `{{promo2_titulo}}`, `{{tip_titulo}}`, etc.
 
 ---
 
-## Especificaciones Técnicas
+## Especificaciones Tecnicas
 
-- **Ancho máximo:** 600px
-- **Responsive:** Sí (mobile-first)
-- **Imágenes:** Optimizadas, con alt text
-- **Compatibilidad:** Gmail, Outlook, Apple Mail, Yahoo
-- **Peso máximo:** < 100KB sin imágenes
-- **Plataforma objetivo:** Brevo (free tier) o Mailchimp (free tier)
-- **Personalización:** Variables {nombre}, {sede}, {fecha_checkin}, {fecha_checkout}
+- **Ancho maximo:** 600px
+- **Responsive:** Si (mobile-first con media queries)
+- **Compatibilidad:** Gmail, Outlook (con VML fallbacks), Apple Mail, Yahoo
+- **Peso:** < 20KB cada template (sin imagenes)
+- **Plataforma:** Mailchimp (free tier: 500 contactos, 1,000 emails/mes)
+- **Colores de marca:** Primary #1a5276, Secondary #e67e22, Accent #27ae60
+- **Fuentes:** System font stack (sin dependencias externas)
 
 ---
 
 ## Checklist
 
-- [ ] Definir plataforma de email marketing
-- [ ] Diseñar template base con branding Tibisay
-- [ ] Crear variante por tipo (transaccional, welcome, post-stay, newsletter)
+- [x] Definir plataforma de email marketing (Mailchimp)
+- [x] Disenar template base con branding Tibisay
+- [x] Crear variante transaccional (confirmacion de reserva)
+- [x] Crear variante welcome (bienvenida al check-in)
+- [x] Crear variante post-stay (agradecimiento + encuesta + Google Review)
+- [x] Crear variante newsletter (secciones modulares editables)
 - [ ] Testear en Gmail, Outlook, Apple Mail
-- [ ] Importar a plataforma elegida
-- [ ] Configurar variables de personalización
+- [ ] Importar a Mailchimp
+- [ ] Configurar variables de personalizacion en Mailchimp
 
 ---
 
-*Templates v2026-03-25 · OVA VISION*
+*Templates v2026-03-30 · OVA VISION*
