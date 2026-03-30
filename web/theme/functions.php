@@ -1,7 +1,7 @@
 <?php
 /**
  * Tibisay Hoteles — functions.php
- * Tema hijo para Hoteles Tibisay (parent: flavor)
+ * Tema personalizado para Hoteles Tibisay
  *
  * @package TibisayHoteles
  * @version 1.0.0
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
    ========================================================================== */
 
 /**
- * Encolar estilos del tema padre + hijo y Google Fonts
+ * Encolar estilos y Google Fonts
  */
 function tibisay_enqueue_styles() {
     // Google Fonts — Inter + Playfair Display con font-display:swap
@@ -27,19 +27,11 @@ function tibisay_enqueue_styles() {
         null
     );
 
-    // Tema padre
-    wp_enqueue_style(
-        'flavor-style',
-        get_template_directory_uri() . '/style.css',
-        array(),
-        wp_get_theme()->parent()->get( 'Version' )
-    );
-
-    // Tema hijo
+    // Estilo principal del tema
     wp_enqueue_style(
         'tibisay-style',
         get_stylesheet_uri(),
-        array( 'flavor-style', 'tibisay-google-fonts' ),
+        array( 'tibisay-google-fonts' ),
         wp_get_theme()->get( 'Version' )
     );
 }
@@ -51,7 +43,7 @@ add_action( 'wp_enqueue_scripts', 'tibisay_enqueue_styles' );
 function tibisay_enqueue_scripts() {
     wp_enqueue_script(
         'tibisay-js',
-        get_stylesheet_directory_uri() . '/assets/js/tibisay.js',
+        get_stylesheet_directory_uri() . '/js/tibisay.js',
         array(),
         wp_get_theme()->get( 'Version' ),
         true
